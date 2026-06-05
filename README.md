@@ -29,15 +29,12 @@ hermes-profiles/
 
 ```bash
 # Clone the repo
-git clone https://github.com/magnus919/hermes-profiles.git
+git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
-# Install profile into ~/.hermes/profiles/
-cp -r profiles/technical-architect ~/.hermes/profiles/
+# Symlink the profile into ~/.hermes/profiles/
+ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
 
-# Install required skills (see profile.yaml for list)
-hermes skills install <skill-name>
-
-# Switch to profile
+# Switch to profile (skills are bundled — no separate install needed)
 hermes --profile technical-architect
 ```
 
