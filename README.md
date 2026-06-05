@@ -8,7 +8,12 @@ These profiles are **opinionated** — they use Hermes-native patterns:
 - Hermes kanban for multi-agent orchestration
 - Hermes profile system for role isolation
 
-They may or may not work in other harnesses. No promises.
+The **profiles** (SOUL.md + profile.yaml) are Hermes-specific and unlikely to work
+in other harnesses. But the **skills** — the methodology directories in `skills/`
+with their SKILL.md + references/ structure — follow the [Agent Skills open
+standard](https://www.agensi.io/learn/agent-skills-open-standard) adopted by
+Claude Code, Codex CLI, Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf,
+and 20+ other coding agents. Those should work anywhere.
 
 ## Repository Structure
 
