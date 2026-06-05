@@ -1,12 +1,12 @@
 ---
 name: qa-methodology
 description: "Quality assurance methodology — test strategy design, test automation patterns, regression testing, CI quality gates, test data management, and quality metrics. Grounded in practical patterns for teams that want confident shipping."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [qa, testing, quality-assurance, test-automation, regression, CI, quality-gates]
+    tags: [qa, testing, quality-assurance, test-automation, regression, CI, quality-gates, flaky-tests, quality-metrics]
     related_skills: [verification-methodology, review-methodology, systematic-debugging, implementation-planning]
 ---
 
@@ -30,10 +30,8 @@ Quality assurance is the practice of making confident shipping routine. This met
 | Reference | When to load |
 |-----------|-------------|
 | `references/test-strategy.md` | Designing a test strategy for a new project or feature — test levels, risk analysis, prioritization, automation targets |
-| `references/test-automation.md` | Selecting and setting up test automation — framework comparison, harness patterns, CI integration, flaky test management |
+| `references/test-automation-gates-metrics.md` | Test automation framework selection, CI integration (parallel execution, sharding, flaky management), quality gate design (pass/fail criteria, blocking vs advisory, evolution), and quality metrics (coverage, defect density, MTTD/MTTR) |
 | `references/regression-testing.md` | Building and maintaining regression suites — selection criteria, prioritization, suite evolution, false positive management |
-| `references/quality-gates.md` | Designing CI quality gates — what to gate on, pass/fail criteria, blocking vs advisory gates, escalation paths |
-| `references/quality-metrics.md` | Measuring quality — coverage analysis, defect density, test effectiveness, MTD/MTTF tracking |
 
 ## Core Principles
 
