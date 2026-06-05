@@ -52,6 +52,7 @@ hermes-profiles/
 │   ├── sdd-work-decomposition/
 │   ├── seo-audit/
 │   ├── seo-content-optimization/
+│   ├── security-audit-methodology/
 │   ├── site-reliability-engineering/
 │   ├── software-architecture-analysis/
 │   ├── systematic-debugging/
@@ -75,6 +76,7 @@ hermes-profiles/
     ├── product-manager/              ← Specs, prioritization, strategy
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
+    ├── security-engineer/            ← Threat modeling, vulnerability assessment, security architecture
     ├── seo-specialist/               ← Search optimization, metadata
     ├── site-reliability-engineer/    ← SRE: reliability engineering, incident command, observability
     ├── spec-driven-development/      ← SDD: spec authoring, task decomposition, verification, phase-gate review
@@ -95,7 +97,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (22 profiles available — pick one)
+# (23 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
