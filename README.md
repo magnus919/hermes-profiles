@@ -14,30 +14,36 @@ They may or may not work in other harnesses. No promises.
 
 ```
 hermes-profiles/
-├── profiles/
-│   ├── technical-architect/    ← Example profile
-│   │   ├── SOUL.md             ← Identity, first principles
-│   │   ├── profile.yaml        ← Metadata, skill dependencies
-│   │   ├── README.md           ← Usage guide
-│   │   └── AGENTS.md           ← Agent trigger patterns, handoff
-│   └── ... (more to come)
-├── LICENSE
-└── README.md
+├── skills/                     ← Shared skill pool (single copy)
+│   ├── artifact-pyramids/
+│   ├── architecture/
+│   │   ├── adr-authoring/
+│   │   ├── arc42-context/
+│   │   ├── architect-pyramid/
+│   │   └── c4-diagramming/
+│   └── mermaid-diagrams/
+└── profiles/
+    └── technical-architect/    ← Profile with symlinks to skills/
+        ├── SOUL.md
+        ├── profile.yaml
+        ├── README.md
+        └── AGENTS.md
 ```
+
+Profiles symlink to the shared `skills/` directory, so one copy of each
+skill serves every profile. Git tracks symlinks by reference, not by
+duplicating content.
 
 ## Using a Profile
 
 ```bash
 # Clone the repo
-git clone https://github.com/magnus919/hermes-profiles.git
+git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
-# Install profile into ~/.hermes/profiles/
-cp -r profiles/technical-architect ~/.hermes/profiles/
+# Symlink the profile into ~/.hermes/profiles/
+ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
 
-# Install required skills (see profile.yaml for list)
-hermes skills install <skill-name>
-
-# Switch to profile
+# Switch to profile (skills are bundled — no separate install needed)
 hermes --profile technical-architect
 ```
 

@@ -20,24 +20,10 @@ Systems architecture specialization for Hermes Agent. Designs service boundaries
 # Clone the profiles repo
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
-# Copy the profile
-cp -r ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
+# Symlink the profile into ~/.hermes/profiles/
+ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
 
-# Install required skills
-hermes skills install artifact-pyramids
-hermes skills install c4-diagramming
-hermes skills install adr-authoring
-hermes skills install arc42-context
-hermes skills install architect-pyramid
-hermes skills install mermaid-diagrams
-
-# Recommended (but optional)
-hermes skills install groktocrawl
-hermes skills install searxng-cli
-hermes skills install github-issues
-hermes skills install github-pr-workflow
-
-# Switch to the profile
+# Switch to profile (skills are bundled — no separate install needed)
 hermes --profile technical-architect
 ```
 
