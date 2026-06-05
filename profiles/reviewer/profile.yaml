@@ -2,3 +2,4 @@ description: "Code and architecture reviewer — reviews PRs, runs quality gates
 skills:
   required:
     - artifact-pyramids
+    - review-methodology

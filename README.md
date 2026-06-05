@@ -21,8 +21,16 @@ hermes-profiles/
 │   │   ├── arc42-context/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
+│   ├── curation-methodology/
+│   ├── data-science-methodology/
+│   ├── debugging-methodology/
+│   ├── editorial-methodology/
 │   ├── mermaid-diagrams/
-│   └── product-methodology/
+│   ├── product-methodology/
+│   ├── research-methodology/
+│   ├── researcher-workflow/
+│   ├── review-methodology/
+│   └── ux-methodology/
 └── profiles/
     ├── technical-architect/    ← Systems architecture: C4 + ADRs + arc42
     ├── product-manager/        ← Product management: specs, prioritization

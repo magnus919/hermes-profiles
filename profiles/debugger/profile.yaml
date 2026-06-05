@@ -2,3 +2,4 @@ description: "Systematic debugger — finds root causes before fixing. Expert in
 skills:
   required:
     - artifact-pyramids
+    - debugging-methodology
