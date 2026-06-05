@@ -32,6 +32,7 @@ hermes-profiles/
 │   ├── data-architect/
 │   ├── data-scientist/
 │   ├── debugging-methodology/
+│   ├── docker-management/
 │   ├── editor-methodology/
 │   ├── editor-review-methodology/
 │   ├── editorial-methodology/
@@ -40,6 +41,7 @@ hermes-profiles/
 │   ├── mermaid-diagrams/
 │   ├── opensource-contributions/
 │   ├── orchestration-methodology/
+│   ├── platform-engineering/
 │   ├── product-methodology/
 │   ├── research-methodology/
 │   ├── researcher-workflow/
@@ -49,6 +51,8 @@ hermes-profiles/
 │   ├── site-reliability-engineering/
 │   ├── software-architecture-analysis/
 │   ├── systematic-debugging/
+│   ├── tailscale/
+│   ├── traefik/
 │   ├── ux-methodology/
 │   └── verification-methodology/
 └── profiles/
@@ -63,6 +67,7 @@ hermes-profiles/
     ├── kanban-strategist/            ← Flow optimization, WIP calibration
     ├── orchestrator/                 ← Task decomposition, specialist routing
     ├── oss-contributor/              ← Open source contribution workflows
+    ├── platform-engineer/            ← CI/CD, IaC, container orchestration, service networking
     ├── product-manager/              ← Specs, prioritization, strategy
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
