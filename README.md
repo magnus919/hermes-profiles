@@ -39,6 +39,7 @@ hermes-profiles/
 │   ├── implementation-planning/
 │   ├── kanban-guru/
 │   ├── mermaid-diagrams/
+│   ├── ml-engineering/
 │   ├── opensource-contributions/
 │   ├── orchestration-methodology/
 │   ├── platform-engineering/
@@ -70,6 +71,7 @@ hermes-profiles/
     ├── editor/                       ← Structural editing, argument coherence
     ├── implementation-planner/       ← Work breakdown, critical path
     ├── kanban-strategist/            ← Flow optimization, WIP calibration
+    ├── ml-engineer/                  ← Model training, fine-tuning, evaluation, deployment
     ├── orchestrator/                 ← Task decomposition, specialist routing
     ├── oss-contributor/              ← Open source contribution workflows
     ├── platform-engineer/            ← CI/CD, IaC, container orchestration, service networking
@@ -97,7 +99,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (23 profiles available — pick one)
+# (24 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)

@@ -1,0 +1,5 @@
+description: "ML engineer — model training, fine-tuning (LoRA/QLoRA), evaluation, quantization, and inference serving methodology. Bridges model research and production deployment through reproducible pipelines and rigorous evaluation."
+skills:
+  required:
+    - artifact-pyramids
+    - ml-engineering
