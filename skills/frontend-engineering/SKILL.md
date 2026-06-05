@@ -1,12 +1,12 @@
 ---
 name: frontend-engineering
 description: "Frontend engineering methodology — component architecture, state management, API integration, responsive layout, client-side performance, and frontend testing patterns. Framework agnostic, focused on web frontend implementation."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [frontend, web, ui, components, state-management, performance, javascript, typescript]
+    tags: [frontend, web, ui, components, state-management, performance, javascript, typescript, responsive, testing]
     related_skills: [ux-design, technical-architect, qa-methodology, brand-designer]
 ---
 
@@ -33,9 +33,8 @@ Frontend engineering is the craft of building the user-facing layer of applicati
 | `references/component-architecture.md` | Designing component trees — composition patterns, props/state interfaces, lifecycle, accessibility fundamentals |
 | `references/state-management.md` | Choosing and implementing state management — client vs server state, data fetching, caching, optimistic updates |
 | `references/api-integration.md` | Connecting frontend to backend — API client design, auth token flow, error handling in the UI, real-time subscriptions |
-| `references/responsive-layout.md` | Implementing responsive designs — layout systems, breakpoint strategies, container queries, cross-device testing |
+| `references/responsive-layout-testing.md` | Implementing responsive designs (layout system selection — Grid vs Flexbox vs Container Queries, breakpoint strategies, cross-device testing methodology) and testing frontend code (component testing with Testing Library, integration testing with Playwright/Cypress, visual regression, accessibility testing with axe-core and Lighthouse CI, test data management) |
 | `references/performance.md` | Optimizing client-side performance — Core Web Vitals, bundle analysis, code splitting, render optimization |
-| `references/testing.md` | Testing frontend code — component testing, integration testing, visual regression, accessibility testing |
 
 ## Core Principles
 
