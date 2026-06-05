@@ -1,0 +1,5 @@
+description: "Pass/fail gatekeeper — verifies work against completion criteria, assesses evidence quality, and holds or passes the verification gate. Differs from reviewer: verifier checks against criteria and makes binary decisions, not quality suggestions."
+skills:
+  required:
+    - artifact-pyramids
+    - verification-methodology
