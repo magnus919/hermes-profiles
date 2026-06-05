@@ -12,3 +12,5 @@ skills:
     - searxng-cli
     - github-issues
     - github-pr-workflow
+  required:
+    - software-architecture-analysis

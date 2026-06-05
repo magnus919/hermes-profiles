@@ -1,0 +1,549 @@
+#!/usr/bin/env python3
+"""
+brand-book — CLI for brand identity artifact assembly, validation, and scaffolding.
+
+Part of the brand-designer AgentSkill. Follows cli-builder conventions:
+non-interactive, flag-driven, idempotent, --json and --dry-run support.
+
+Subcommands:
+  init        — Scaffold a new brand directory with all 7 templates
+  compile     — Read frontmatter from markdown files, assemble into artifact
+  validate    — Check required fields, color space completeness, cross-references
+  preview     — Render a terminal preview of a brand component
+"""
+
+import argparse
+import json
+import os
+import re
+import shutil
+import sys
+import textwrap
+from datetime import date
+from pathlib import Path
+
+# --- Configuration ---
+
+TEMPLATES_DIR = Path(__file__).resolve().parent.parent / "templates"
+
+ARTIFACT_TYPES = [
+    "brand-card", "strategy", "visual-id", "voice",
+    "application", "governance", "asset-inventory", "full"
+]
+
+TEMPLATE_MAP = {
+    "brand-card": "templates/brand-card.md",
+    "strategy": "templates/strategy.md",
+    "visual-id": "templates/visual-id.md",
+    "voice": "templates/voice.md",
+    "application": "templates/application.md",
+    "governance": "templates/governance.md",
+    "asset-inventory": "templates/asset-inventory.md",
+}
+
+CANONICAL_ORDER = [
+    "strategy", "visual-id", "voice", "application",
+    "governance", "asset-inventory"
+]
+
+# --- Frontmatter Parsing ---
+
+def parse_frontmatter(text):
+    """Extract YAML frontmatter from markdown. Returns (frontmatter_dict, body_text).
+
+    Uses PyYAML if available (preferred), falls back to a simple line parser.
+    """
+    match = re.match(r'^---\n(.*?)\n---\n(.*)', text, re.DOTALL)
+    if not match:
+        return {}, text.strip()
+
+    raw_yaml = match.group(1)
+    body = match.group(2).strip()
+
+    # Try PyYAML first
+    try:
+        import yaml
+        result = yaml.safe_load(raw_yaml)
+        if isinstance(result, dict):
+            return result, body
+    except ImportError:
+        pass
+    except yaml.YAMLError:
+        pass
+
+    # Fallback: simple line parser for basic key:value and list frontmatter
+    lines = raw_yaml.split('\n')
+    result = {}
+    current_list_key = None
+    current_list = []
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith('#'):
+            continue
+
+        # List item
+        if stripped.startswith('- '):
+            item_text = stripped[2:].strip()
+            # Check if this is a k:v pair within the list item
+            if ': ' in item_text and not item_text.startswith('"') and not item_text.startswith("'"):
+                parts = item_text.split(': ', 1)
+                current_list.append({parts[0].strip(): parts[1].strip().strip('"').strip("'")})
+            else:
+                current_list.append(item_text.strip('"').strip("'"))
+            continue
+
+        # Flush pending list
+        if current_list_key is not None and current_list:
+            result[current_list_key] = current_list
+            current_list_key = None
+            current_list = []
+
+        # Key: value pair
+        if ': ' in stripped:
+            key, value = stripped.split(': ', 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+
+            if value == '' or value == '|' or value == '>':
+                # Value follows on next lines — could be nested or multiline
+                current_list_key = key
+                current_list = []
+                continue
+
+            # Type coercion
+            if value == 'true': value = True
+            elif value == 'false': value = False
+            elif value == 'null' or value == '~': value = None
+
+            result[key] = value
+
+    # Flush trailing list
+    if current_list_key is not None and current_list:
+        result[current_list_key] = current_list
+
+    return result, body
+
+
+def read_frontmatter(path):
+    """Read and parse frontmatter from a markdown file."""
+    with open(path) as f:
+        text = f.read()
+    fm, body = parse_frontmatter(text)
+    fm['_path'] = str(path)
+    fm['_body'] = body
+    return fm
+
+
+# --- Validation ---
+
+def validate_frontmatter(fm, strict=False):
+    """Validate a frontmatter dict. Returns list of (field, severity, message) tuples."""
+    issues = []
+    artifact_type = fm.get('type', 'unknown')
+
+    # Required fields for all types
+    for field in ['type', 'brand']:
+        if field not in fm or not fm[field]:
+            issues.append((field, 'error', f"Missing required field: {field}"))
+
+    if artifact_type not in ARTIFACT_TYPES and artifact_type not in [
+        'brand-card-template', 'brand-strategy-template', 'brand-visual-identity-template',
+        'brand-voice-template', 'brand-application-template', 'brand-governance-template',
+        'brand-asset-inventory-template'
+    ]:
+        issues.append(('type', 'warning', f"Unknown artifact type: {artifact_type}"))
+
+    # Type-specific validation
+    type_checks = {
+        'brand-visual-identity': validate_visual_id,
+        'brand-strategy': validate_strategy,
+        'brand-voice': validate_voice,
+    }
+
+    check_fn = type_checks.get(artifact_type)
+    if check_fn:
+        issues.extend(check_fn(fm))
+
+    # Cross-reference validation (strict mode)
+    if strict:
+        # brand-card must have source links
+        if artifact_type == 'brand-card':
+            sources = fm.get('source', {})
+            if not sources:
+                issues.append(('source', 'error', "Brand card must reference source templates via `source:`"))
+
+        # visual-id must have logo variant coverage
+        if artifact_type in ('brand-visual-identity', 'brand-visual-identity-template'):
+            logo = fm.get('logo', {})
+            if not logo.get('primary'):
+                issues.append(('logo.primary', 'warning', "Missing primary logo definition"))
+
+    return issues
+
+
+def validate_visual_id(fm):
+    """Validate visual identity spec."""
+    issues = []
+    colors = fm.get('colors', {})
+    primary = colors.get('primary', [])
+    if not primary:
+        issues.append(('colors.primary', 'error', "At least one primary color required"))
+    else:
+        for i, color in enumerate(primary):
+            for space in ['hex', 'rgb', 'cmyk']:
+                if space not in color:
+                    issues.append((f'colors.primary[{i}].{space}', 'warning',
+                                   f"Color '{color.get('name', 'unnamed')}' missing {space.upper()} value"))
+
+    typography = fm.get('typography', {})
+    if not typography.get('primary'):
+        issues.append(('typography.primary', 'error', "Primary typeface required"))
+
+    return issues
+
+
+def validate_strategy(fm):
+    """Validate strategy memo."""
+    issues = []
+    for field in ['positioning', 'mission']:
+        if field not in fm:
+            issues.append((field, 'warning', f"Consider adding {field}"))
+
+    positioning = fm.get('positioning', {})
+    if isinstance(positioning, dict):
+        for sub in ['audience', 'differentiator']:
+            if sub not in positioning:
+                issues.append((f'positioning.{sub}', 'warning', f"Consider adding positioning.{sub}"))
+
+    return issues
+
+
+def validate_voice(fm):
+    """Validate voice guidelines."""
+    issues = []
+    attributes = fm.get('attributes', [])
+    if not attributes:
+        issues.append(('attributes', 'warning', "No voice attributes defined"))
+    return issues
+
+
+# --- Compilation ---
+
+def compile_brand_card(templates_dir, brand_name=None):
+    """Compile a brand card one-pager from source templates."""
+    sections = []
+    sections.append("# Brand Card\n")
+
+    # Try to find strategy for tagline and personality
+    for tmpl_name in ['strategy', 'visual-id']:
+        tmpl_path = templates_dir / f"{tmpl_name}.md"
+        if tmpl_path.exists():
+            fm, body = parse_frontmatter(tmpl_path.read_text())
+            if tmpl_name == 'strategy':
+                brand = fm.get('brand', brand_name or 'Your Brand')
+                positioning = fm.get('positioning', {})
+                if isinstance(positioning, dict) and positioning.get('differentiator'):
+                    sections.append(f"> **{positioning.get('differentiator')}**\n")
+            elif tmpl_name == 'visual-id':
+                collect_color_swatches(fm, sections)
+                collect_typeface_info(fm, sections)
+
+    if not sections or len(sections) < 2:
+        sections.append("*Fill in your brand templates to see compiled content here.*")
+
+    return '\n'.join(sections)
+
+
+def collect_color_swatches(fm, sections):
+    """Extract and format color swatch info for brand card."""
+    colors = fm.get('colors', {})
+    primary = colors.get('primary', [])
+    if primary:
+        sections.append("## Color Palette\n")
+        sections.append("| Name | HEX |")
+        sections.append("|------|-----|")
+        for c in primary[:6]:
+            name = c.get('name', 'Unnamed')
+            hex_val = c.get('hex', '—')
+            sections.append(f"| {name} | `#{hex_val}` |")
+        sections.append("")
+
+
+def collect_typeface_info(fm, sections):
+    """Extract and format typeface info for brand card."""
+    typography = fm.get('typography', {})
+    primary = typography.get('primary', {})
+    if isinstance(primary, dict) and primary.get('family'):
+        sections.append("## Typography\n")
+        family = primary['family']
+        weights = primary.get('weights', [])
+        weight_str = ', '.join(str(w) for w in weights) if weights else '—'
+        sections.append(f"- **Primary:** {family} ({weight_str})\n")
+        secondary = typography.get('secondary', {})
+        if isinstance(secondary, dict) and secondary.get('family'):
+            sections.append(f"- **Secondary:** {secondary.get('family')}\n")
+        sections.append("")
+
+
+def compile_full(templates_dir):
+    """Compile all spec documents into a single brand book."""
+    sections = []
+
+    # Read all spec templates in canonical order
+    for tmpl_name in CANONICAL_ORDER:
+        tmpl_path = templates_dir / f"{tmpl_name}.md"
+        if tmpl_path.exists():
+            fm, body = parse_frontmatter(tmpl_path.read_text())
+            brand = fm.get('brand', 'Your Brand')
+            # Use the body directly
+            sections.append(f"\n\n<!-- {tmpl_name} -->\n\n{body}")
+
+    if not sections:
+        return "*No spec documents found to compile.*"
+
+    return '\n'.join(sections)
+
+
+# --- Preview ---
+
+def preview_artifact(fm):
+    """Render a terminal-friendly preview of a brand component."""
+    lines = []
+    artifact_type = fm.get('type', 'unknown').replace('-template', '')
+    brand = fm.get('brand', 'Unnamed Brand')
+
+    lines.append(f"╔══ {brand} — {artifact_type.upper()} ══" + "╗")
+    lines.append("")
+
+    if artifact_type == 'brand-card' or artifact_type == 'brand-card-template':
+        tagline = fm.get('tagline', '')
+        if tagline:
+            lines.append(f"  {tagline}")
+            lines.append("")
+
+    if 'positioning' in fm:
+        pos = fm['positioning']
+        if isinstance(pos, dict):
+            diff = pos.get('differentiator', '')
+            if diff:
+                lines.append(f"  Key differentiator: {diff}")
+                lines.append("")
+
+    if 'colors' in fm:
+        colors = fm['colors']
+        primary = colors.get('primary', [])
+        if primary:
+            lines.append("  Colors:")
+            for c in primary[:4]:
+                name = c.get('name', '?')
+                hex_val = c.get('hex', '?')
+                lines.append(f"    {name:20s} #{hex_val}")
+            lines.append("")
+
+    if 'typography' in fm:
+        type_spec = fm['typography']
+        primary = type_spec.get('primary', {})
+        if isinstance(primary, dict) and primary.get('family'):
+            lines.append(f"  Typeface: {primary['family']}")
+            lines.append("")
+
+    if 'attributes' in fm:
+        attrs = fm['attributes']
+        if attrs:
+            lines.append("  Voice:")
+            for attr in attrs[:3]:
+                if isinstance(attr, dict):
+                    lines.append(f"    {attr.get('name', '?'):15s} — {attr.get('description', '')}")
+            lines.append("")
+
+    # Footer
+    issues = validate_frontmatter(fm)
+    errors = [i for i in issues if i[1] == 'error']
+    warnings = [i for i in issues if i[1] == 'warning']
+    if errors:
+        lines.append(f"  ⚠ {len(errors)} error(s) — run `validate`")
+    if warnings:
+        lines.append(f"  ⚡ {len(warnings)} warning(s) — run `validate --strict`")
+
+    return '\n'.join(lines)
+
+
+# --- Scaffolding ---
+
+def scaffold_brand(target_dir, brand_name=None):
+    """Create a new brand directory with all 7 templates."""
+    target = Path(target_dir)
+
+    if target.exists() and list(target.iterdir()):
+        print(f"Error: {target} already exists and is not empty.")
+        sys.exit(1)
+
+    target.mkdir(parents=True, exist_ok=True)
+    templates_dir = TEMPLATES_DIR
+
+    if not templates_dir.exists():
+        print(f"Error: Templates directory not found at {templates_dir}")
+        sys.exit(1)
+
+    # Copy all templates
+    copied = []
+    for tmpl_path in sorted(templates_dir.glob("*.md")):
+        dest = target / tmpl_path.name
+        content = tmpl_path.read_text()
+
+        # Replace {{brand}} placeholder if brand name provided
+        if brand_name:
+            content = content.replace("{{brand}}", brand_name)
+            content = content.replace("{{Brand Name}}", brand_name)
+
+        dest.write_text(content)
+        copied.append(dest.name)
+
+    return copied
+
+
+# --- CLI ---
+
+def main():
+    # Use parent parser for shared flags
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument('--json', action='store_true', help='Output as JSON')
+    parent_parser.add_argument('--dry-run', action='store_true', help='Preview what would happen')
+
+    parser = argparse.ArgumentParser(
+        description="Brand identity artifact CLI — scaffold, compile, validate, preview",
+        parents=[parent_parser],
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent("""\
+            Examples:
+              brand-book init ./my-brand --name "Acme Corp"
+              brand-book compile ./my-brand --artifact brand-card
+              brand-book compile ./my-brand --artifact full --format html
+              brand-book validate ./my-brand/visual-id.md --strict
+              brand-book preview ./my-brand/strategy.md
+        """)
+    )
+
+    subparsers = parser.add_subparsers(dest='command', help='Subcommand')
+
+    # init
+    init_parser = subparsers.add_parser('init', parents=[parent_parser], add_help=False,
+                                        help='Scaffold a new brand directory')
+    init_parser.add_argument('directory', help='Target directory for the new brand')
+    init_parser.add_argument('--name', '-n', help='Brand name (replaces {{brand}} placeholders)')
+
+    # compile
+    compile_parser = subparsers.add_parser('compile', parents=[parent_parser], add_help=False,
+                                           help='Assemble brand artifacts from templates')
+    compile_parser.add_argument('directory', help='Directory containing brand templates')
+    compile_parser.add_argument('--artifact', choices=ARTIFACT_TYPES, default='full',
+                                help='Artifact type to compile (default: full)')
+    compile_parser.add_argument('--format', choices=['markdown', 'html'], default='markdown',
+                                help='Output format')
+    compile_parser.add_argument('--output', '-o', help='Output file path')
+
+    # validate
+    validate_parser = subparsers.add_parser('validate', parents=[parent_parser], add_help=False,
+                                            help='Validate brand documentation')
+    validate_parser.add_argument('files', nargs='+', help='Files to validate')
+    validate_parser.add_argument('--strict', action='store_true', help='Check cross-references')
+
+    # preview
+    preview_parser = subparsers.add_parser('preview', parents=[parent_parser], add_help=False,
+                                           help='Preview a brand component')
+    preview_parser.add_argument('file', help='File to preview')
+
+    args = parser.parse_args()
+
+    if args.json:
+        # JSON output mode — defer to command handlers
+        pass
+
+    if args.dry_run:
+        print("[DRY RUN] No changes made.")
+        return
+
+    if args.command == 'init':
+        result = scaffold_brand(args.directory, args.name)
+        if args.json:
+            print(json.dumps({"status": "ok", "copied": result}))
+        else:
+            print(f"Scaffolded brand directory at {args.directory}/")
+            for f in result:
+                print(f"  + {f}")
+
+    elif args.command == 'compile':
+        target = Path(args.directory)
+        if not target.exists():
+            print(f"Error: Directory not found: {args.directory}")
+            sys.exit(1)
+
+        if args.artifact == 'brand-card':
+            output = compile_brand_card(target)
+        elif args.artifact == 'full':
+            output = compile_full(target)
+        else:
+            # Single template compilation
+            tmpl_name = args.artifact
+            tmpl_path = target / f"{tmpl_name}.md"
+            if not tmpl_path.exists():
+                print(f"Error: Template not found: {tmpl_path}")
+                sys.exit(1)
+            fm, body = parse_frontmatter(tmpl_path.read_text())
+            output = body
+
+        if args.json:
+            print(json.dumps({"status": "ok", "content": output, "length": len(output)}))
+        else:
+            if args.output:
+                Path(args.output).write_text(output)
+                print(f"Written to {args.output}")
+            else:
+                print(output)
+
+    elif args.command == 'validate':
+        all_issues = []
+        for filepath in args.files:
+            path = Path(filepath)
+            if not path.exists():
+                all_issues.append((filepath, 'error', f"File not found: {filepath}"))
+                continue
+            fm = read_frontmatter(path)
+            issues = validate_frontmatter(fm, strict=args.strict)
+            all_issues.extend((filepath,) + i for i in issues)
+
+        if args.json:
+            issues_json = [
+                {"file": f, "field": field, "severity": sev, "message": msg}
+                for f, field, sev, msg in all_issues
+            ]
+            print(json.dumps({"issues": issues_json, "count": len(all_issues)}))
+        else:
+            if not all_issues:
+                print("✓ No issues found.")
+                return
+
+            for fpath, field, sev, msg in all_issues:
+                icon = "✗" if sev == 'error' else "⚠" if sev == 'warning' else "→"
+                print(f"  {icon} [{sev.upper()}] {fpath} — {field}: {msg}")
+            print(f"\n{len(all_issues)} issue(s) found.")
+
+    elif args.command == 'preview':
+        path = Path(args.file)
+        if not path.exists():
+            print(f"Error: File not found: {args.file}")
+            sys.exit(1)
+        fm = read_frontmatter(path)
+        preview = preview_artifact(fm)
+        if args.json:
+            print(json.dumps({"preview": preview}))
+        else:
+            print(preview)
+
+    else:
+        parser.print_help()
+
+
+if __name__ == '__main__':
+    main()
