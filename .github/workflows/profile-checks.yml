@@ -63,13 +63,13 @@ jobs:
         run: |
           errors=0
           actual_profiles=$(ls profiles/ | wc -l | tr -d ' ')
-          readme_profiles=$(grep -c "←" README.md)
+          readme_profiles=$(grep -cE "├── [a-z].*/.*←|└── [a-z].*/.*←" README.md)
           if [ "$readme_profiles" -ne "$actual_profiles" ]; then
             echo "README.md lists $readme_profiles profiles but $actual_profiles profiles exist"
             errors=$((errors + 1))
           fi
           actual_skills=$(ls skills/ | wc -l | tr -d ' ')
-          readme_skills=$(grep -c "│   ├── \|│   └── " README.md | head -1)
+          readme_skills=$(grep -cE "^│   [├└]── [a-z]" README.md)
           if [ "$readme_skills" -ne "$actual_skills" ]; then
             echo "README.md skills section may be out of date ($readme_skills listed, $actual_skills exist)"
             errors=$((errors + 1))
