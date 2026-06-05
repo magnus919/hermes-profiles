@@ -19,7 +19,7 @@ and 20+ other coding agents. Those should work anywhere.
 
 ```
 hermes-profiles/
-├── skills/                          ← Shared skill pool
+├── skills/                          
 │   ├── architecture/
 │   │   ├── adr-authoring/
 │   │   ├── arc42-context/
