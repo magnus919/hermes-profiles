@@ -8,7 +8,11 @@
 
 **Schema changes are code changes** — Every migration needs review, testing, and a rollback plan. Schema drift is technical debt with compounding interest.
 
-**Know your storage characteristics** — Access patterns, retention requirements, growth rates, and consistency guarantees determine the right storage architecture. Choose based on data, not familiarity.
+**Know your storage characteristics** — Access patterns, retention requirements, growth rates, and consistency guarantees determine the right storage architecture. Relational, vector, graph, and time-series stores each have different operational profiles. Choose based on data, not familiarity.
+
+**Transform where the data lives** — ELT over ETL. Load raw data into the warehouse first, then transform with SQL and dbt. The warehouse is the transformation engine.
+
+**Every data store needs a backup and recovery plan before it reaches production** — If you haven't tested a restore, you don't have a backup. RPO and RTO are operational requirements, not documentation exercises.
 
 ## The Output Contract
 
