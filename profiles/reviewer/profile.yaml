@@ -1,0 +1,4 @@
+description: "Code and architecture reviewer — reviews PRs, runs quality gates, audits for regressions, and verifies against standards."
+skills:
+  required:
+    - artifact-pyramids
