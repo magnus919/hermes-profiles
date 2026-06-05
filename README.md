@@ -38,6 +38,7 @@ hermes-profiles/
 │   ├── editor-methodology/
 │   ├── editor-review-methodology/
 │   ├── editorial-methodology/
+│   ├── frontend-engineering/
 │   ├── implementation-planning/
 │   ├── kanban-guru/
 │   ├── mermaid-diagrams/
@@ -75,6 +76,7 @@ hermes-profiles/
     ├── data-scientist/               ← Stats, causal inference, ML
     ├── debugger/                     ← Root cause analysis, error diagnosis
     ├── editor/                       ← Structural editing, argument coherence
+    ├── frontend-engineer/            ← UI components, state management, API integration, performance
     ├── implementation-planner/       ← Work breakdown, critical path
     ├── kanban-strategist/            ← Flow optimization, WIP calibration
     ├── ml-engineer/                  ← Model training, fine-tuning, evaluation, deployment
@@ -107,7 +109,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (28 profiles available — pick one)
+# (29 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
