@@ -1,0 +1,4 @@
+description: "Knowledge curator — manages notes, creates and cross-links atomic content, ingests sources, and maintains knowledge graph connectivity."
+skills:
+  required:
+    - artifact-pyramids
