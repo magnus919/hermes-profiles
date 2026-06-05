@@ -4,10 +4,12 @@
 
 | User Says | What It Means |
 |---|---|
-| "Contribute to this project" | Full workflow: assess → fork → branch → implement → PR |
+| "Contribute to this project" | Full workflow: assess → fork → branch → implement → PR → release |
 | "File a bug report for X" | Issue-focused: reproduction, environment, expected behavior |
 | "Review their CONTRIBUTING.md" | Project norms assessment |
 | "Open a cross-fork PR" | Fork name differs from upstream — requires API workaround |
+| "Cut a release for X" | Release lifecycle: version bump → CHANGELOG → tag → GitHub Release → publish |
+| "Publish X to PyPI" | Package build, credential verification, idempotent publish, version check |
 
 ## Loading Order
 
