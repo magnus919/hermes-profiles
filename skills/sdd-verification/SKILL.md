@@ -88,3 +88,27 @@ Does the implementation correctly reject invalid inputs per the spec? A system t
 | CRITICAL | An AC is failed but a feasible workaround exists | Gate does not pass without documented exception |
 | MINOR | An AC passes but with suboptimal behavior, or a non-functional requirement is partially met | Gate can pass with remediation plan |
 | INFO | An observation that does not affect pass/fail status — spec improvement suggestion, test gap | Informational |
+
+## Gate Verdict Calculation
+
+After classifying each AC by severity, produce a single gate verdict that determines whether the implementation passes to the next SDD phase. The verdict is computed deterministically from severity counts:
+
+| Condition | Verdict |
+|-----------|---------|
+| 0 BLOCKING, 0 CRITICAL, all ACs tested | APPROVED — the implementation satisfies the specification |
+| 0 BLOCKING, ≤2 CRITICAL with remediation plans documented | CONDITIONS — implementation passes but requires tracked remediation of CRITICAL failures |
+| Any BLOCKING failure | REJECTED — core requirement unmet; remediation must be completed and re-verified |
+| ≥3 CRITICAL failures without documented remediation plans | REJECTED — unacceptable failure density without resolution path |
+| < 90% compliance score without documented exception | REJECTED — overall quality below threshold |
+
+The Gate Verdict MUST be included in the L1 summary of every VERIFICATION.md. This makes the verification output directly consumable by the downstream sdd-review phase gate.
+
+### Remediation Recommendation Format
+
+Each BLOCKING, CRITICAL, and MINOR finding in the L3 dossiers SHOULD include a remediation recommendation following this structure:
+
+- **What to fix:** The specific code, config, or behavior that needs to change
+- **Why this severity:** The impact that justifies the severity classification
+- **Verification for the fix:** How to confirm the fix satisfies the AC (specific test or check)
+
+Remediation recommendations are guidance for the implementation agent — they are NOT spec amendments. If the remediation suggests a spec change (ambiguous AC, missing AC), escalate per the Escalation Protocol instead.
