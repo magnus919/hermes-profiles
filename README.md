@@ -45,6 +45,7 @@ hermes-profiles/
 │   ├── orchestration-methodology/
 │   ├── platform-engineering/
 │   ├── product-methodology/
+│   ├── qa-methodology/
 │   ├── research-methodology/
 │   ├── researcher-workflow/
 │   ├── review-methodology/
@@ -78,6 +79,7 @@ hermes-profiles/
     ├── oss-contributor/              ← Open source contribution workflows
     ├── platform-engineer/            ← CI/CD, IaC, container orchestration, service networking
     ├── product-manager/              ← Specs, prioritization, strategy
+    ├── qa-engineer/                  ← Test strategy, automation, quality gates
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
     ├── security-engineer/            ← Threat modeling, vulnerability assessment, security architecture
@@ -101,7 +103,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (25 profiles available — pick one)
+# (26 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
