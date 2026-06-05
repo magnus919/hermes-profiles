@@ -1,12 +1,12 @@
 ---
 name: backend-engineering
 description: "Backend engineering methodology — API implementation patterns (REST, gRPC, GraphQL), service architecture (clean/hexagonal/layered), database access patterns, integration and middleware design, error handling, and service-level testing. Language and framework agnostic."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [backend, api, services, server, database, integration, middleware]
+    tags: [backend, api, services, server, database, integration, middleware, query-optimization, testing]
     related_skills: [technical-architect, data-engineering, platform-engineering, qa-methodology]
 ---
 
@@ -31,10 +31,9 @@ Backend engineering is the craft of building the server-side systems that power 
 |-----------|-------------|
 | `references/api-patterns.md` | Designing or implementing API endpoints — resource modeling, versioning, pagination, error response formats, request validation |
 | `references/service-patterns.md` | Structuring service logic — clean/hexagonal/layered architecture, dependency injection, middleware composition, request lifecycle, background jobs |
-| `references/database-patterns.md` | Writing database access code — connection pooling, query optimization, N+1 detection, pagination strategies, transaction boundaries |
+| `references/database-testing.md` | Database access patterns (connection pooling, query optimization, N+1 detection, pagination strategies, transaction boundaries, read/write splitting, replication lag) and service-level testing (unit testing business logic, integration testing API contracts with test containers/WireMock, contract testing with Pact, test fixtures, CI integration) |
 | `references/integration-patterns.md` | Integrating with external systems — retry with backoff, circuit breakers, idempotency keys, webhook verification, message queue consumers |
 | `references/error-handling.md` | Handling errors systematically — classification (client vs server), structured responses, exception handling patterns, observability correlation |
-| `references/testing.md` | Testing backend services — unit tests for business logic, integration tests for API contracts, contract tests for service boundaries |
 
 ## Core Principles
 
