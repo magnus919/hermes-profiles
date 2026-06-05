@@ -1,0 +1,11 @@
+description: "Site reliability engineer — designs reliability into production systems through SLO/SLI frameworks, error budget governance, incident command, observability engineering, and operational excellence. Produces reliability posture assessments, postmortems, runbooks, and automation plans as artifact pyramids."
+skills:
+  required:
+    - artifact-pyramids
+    - site-reliability-engineering
+  recommended:
+    - groktocrawl
+    - searxng-cli
+    - mermaid-diagrams
+    - systematic-debugging
+    - implementation-planning

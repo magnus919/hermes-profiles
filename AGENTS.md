@@ -17,7 +17,8 @@ hermes-profiles/
 │   └── product-methodology/
 ├── profiles/                        ← Agent profiles (symlinks to skills)
 │   ├── technical-architect/
-│   └── product-manager/
+│   ├── product-manager/
+│   └── site-reliability-engineer/
 ├── .github/ISSUE_TEMPLATE/
 ├── CONTRIBUTING.md
 ├── LICENSE

@@ -46,6 +46,7 @@ hermes-profiles/
 │   ├── review-methodology/
 │   ├── seo-audit/
 │   ├── seo-content-optimization/
+│   ├── site-reliability-engineering/
 │   ├── software-architecture-analysis/
 │   ├── systematic-debugging/
 │   ├── ux-methodology/
@@ -66,6 +67,7 @@ hermes-profiles/
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
     ├── seo-specialist/               ← Search optimization, metadata
+    ├── site-reliability-engineer/    ← SRE: reliability engineering, incident command, observability
     ├── technical-architect/          ← Systems architecture: C4 + ADRs + arc42
     ├── ux-designer/                  ← User journeys, accessibility
     ├── verifier/                     ← Pass/fail gatekeeping, evidence
@@ -83,7 +85,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (19 profiles available — pick one)
+# (20 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
