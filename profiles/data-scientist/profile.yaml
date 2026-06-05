@@ -1,5 +1,5 @@
-description: "PhD-level data scientist — statistical modeling, causal inference, experimental design, machine learning, and reproducible research."
+description: "PhD-level data scientist — statistical modeling, causal inference, experimental design, machine learning, and reproducible research. Runs assumption diagnostics, power analysis, and produces rigorous analysis reports."
 skills:
   required:
     - artifact-pyramids
-    - data-science-methodology
+    - data-scientist
