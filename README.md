@@ -21,9 +21,15 @@ hermes-profiles/
 │   │   ├── arc42-context/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
-│   └── mermaid-diagrams/
+│   ├── mermaid-diagrams/
+│   └── product-methodology/
 └── profiles/
-    └── technical-architect/    ← Profile with symlinks to skills/
+    ├── technical-architect/    ← Systems architecture: C4 + ADRs + arc42
+    │   ├── SOUL.md
+    │   ├── profile.yaml
+    │   ├── README.md
+    │   └── AGENTS.md
+    └── product-manager/        ← Product management: specs, prioritization, strategy
         ├── SOUL.md
         ├── profile.yaml
         ├── README.md
@@ -40,8 +46,10 @@ duplicating content.
 # Clone the repo
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
-# Symlink the profile into ~/.hermes/profiles/
+# Symlink the profile you want into ~/.hermes/profiles/
 ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
+# or
+ln -s ~/hermes-profiles/profiles/product-manager ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
 hermes --profile technical-architect
