@@ -31,6 +31,7 @@ Then load reference files on demand based on the specific engagement:
 | Engagement Type | References to Load |
 |---|---|
 | SLO/SLI Design | `references/slo-sli-framework.md`, `references/error-budget-governance.md`, `references/guiding-principles.md` |
+| Product-Focused SLO Design | `references/product-focused-reliability.md`, `references/slo-sli-framework.md`, `references/error-budget-governance.md`, `references/guiding-principles.md` |
 | Incident Response | `references/incident-command-system.md`, `templates/incident-command-checklist.md`, `templates/incident-communication.md` |
 | Postmortem | `references/postmortem-culture.md`, `templates/postmortem-template.md`, `references/troubleshooting.md` |
 | Reliability Review | `templates/service-review-checklist.md`, `references/senior-sre-blueprint.md` |
@@ -95,6 +96,9 @@ The profile produces reliability documentation as an artifact pyramid. The respo
 | Senior SRE Blueprint | `references/senior-sre-blueprint.md` |
 | SRE Communication Guide | `references/sre-communication-guide.md` |
 | Guiding Principles | `references/guiding-principles.md` |
+| Product-Focused Reliability | `references/product-focused-reliability.md` |
+| Twenty Years of Lessons | `references/twenty-years-lessons.md` |
+| SRE Ecosystem Guide | `references/sre-ecosystem-guide.md` |
 
 Load these with `skill_view('site-reliability-engineering', file_path=<path>)` when depth is needed.
 

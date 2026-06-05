@@ -47,6 +47,9 @@ A comprehensive methodology for designing, operating, and improving reliable pro
 | Senior SRE Role Blueprint | `references/senior-sre-blueprint.md` | Role definition, KPI framework |
 | SRE Communication Guide | `references/sre-communication-guide.md` | Stakeholder updates, incident communication |
 | Guiding Principles | `references/guiding-principles.md` | First principles, philosophy |
+| Product-Focused Reliability | `references/product-focused-reliability.md` | Product-centric SRE, CUJ-based SLOs, JTBD model |
+| Twenty Years of Lessons | `references/twenty-years-lessons.md` | Incident-derived tactical lessons, Prodverbs |
+| SRE Ecosystem Guide | `references/sre-ecosystem-guide.md` | Curated guide to all SRE resources (Workbook, Secure Systems, Classroom, Prodcast, STPA, Video Gallery, Mobaa, fundamentals, AI ops) |
 
 ## Templates
 

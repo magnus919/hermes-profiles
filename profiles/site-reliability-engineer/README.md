@@ -66,6 +66,9 @@ The skill bundles extensive reference material accessible via `skill_view()`:
 - **Senior SRE Blueprint** — role definition, KPI framework, career progression (`references/senior-sre-blueprint.md`)
 - **SRE Communication Guide** — incident communication, influencing without authority, stakeholder updates (`references/sre-communication-guide.md`)
 - **Guiding Principles** — first principles, philosophy, cross-reference to SRE book chapters (`references/guiding-principles.md`)
+- **Product-Focused Reliability** — product-centric SRE, CUJ-based SLOs, JTBD framework (`references/product-focused-reliability.md`)
+- **Twenty Years of Lessons** — 11 incident-derived tactical lessons, Prodverbs mnemonic collection (`references/twenty-years-lessons.md`)
+- **SRE Ecosystem Guide** — curated guide to all sre.google resources: Workbook, Secure Systems, Classroom labs, Prodcast, Video Gallery, STPA, Mobaa, fundamentals, AI ops (`references/sre-ecosystem-guide.md`)
 
 ### Templates
 
