@@ -26,6 +26,7 @@ hermes-profiles/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
 │   ├── artifact-pyramids/
+│   ├── backend-engineering/
 │   ├── brand-designer/
 │   ├── copy-editor-methodology/
 │   ├── curation-methodology/
@@ -65,6 +66,7 @@ hermes-profiles/
 │   ├── ux-methodology/
 │   └── verification-methodology/
 └── profiles/
+    ├── backend-engineer/             ← API implementation, service logic, database access
     ├── brand-designer/               ← Brand identity, visual systems
     ├── copy-editor/                  ← Line-level editing, proofreading
     ├── curator/                      ← Knowledge management, atomic notes
@@ -105,7 +107,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (27 profiles available — pick one)
+# (28 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
