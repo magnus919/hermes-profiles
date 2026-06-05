@@ -1,12 +1,12 @@
 ---
 name: ml-engineering
 description: "Machine learning engineering methodology — model training, fine-tuning (LoRA/QLoRA), evaluation, quantization, deployment, and MLOps pipeline design. Grounded in practical engineering patterns for production ML systems."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [ml, machine-learning, fine-tuning, training, evaluation, quantization, mlops]
+    tags: [ml, machine-learning, fine-tuning, training, evaluation, quantization, mlops, inference, vllm, gguf]
     related_skills: [data-scientist, platform-engineering, site-reliability-engineering]
 ---
 
@@ -31,8 +31,7 @@ Machine learning engineering is the bridge between model research and production
 |-----------|-------------|
 | `references/fine-tuning.md` | Setting up a LoRA/QLoRA/ full fine-tuning run — data prep, hyperparameters, validation strategy |
 | `references/evaluation.md` | Evaluating a model — benchmark selection, custom eval sets, regression tracking, comparison methodology |
-| `references/quantization.md` | Quantizing a model — GGUF conversion, GPTQ/AWQ, calibration data, quality-impact assessment |
-| `references/inference-serving.md` | Deploying a model for inference — vLLM, llama.cpp, TGI, batch vs streaming, concurrency |
+| `references/quantization-inference.md` | Quantizing a model and serving it — GGUF/GPTQ/AWQ/bitsandbytes comparison, calibration data strategies, KV cache quantization, vLLM/llama.cpp/TGI/Triton architecture, production considerations |
 | `references/training-infrastructure.md` | Selecting and provisioning training infrastructure — GPU selection, multi-GPU training, cloud vs on-prem |
 
 ## Core Principles
