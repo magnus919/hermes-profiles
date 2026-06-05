@@ -60,6 +60,7 @@ hermes-profiles/
 │   ├── software-architecture-analysis/
 │   ├── systematic-debugging/
 │   ├── tailscale/
+│   ├── technical-documentation/
 │   ├── traefik/
 │   ├── ux-methodology/
 │   └── verification-methodology/
@@ -87,6 +88,7 @@ hermes-profiles/
     ├── site-reliability-engineer/    ← SRE: reliability engineering, incident command, observability
     ├── spec-driven-development/      ← SDD: spec authoring, task decomposition, verification, phase-gate review
     ├── technical-architect/          ← Systems architecture: C4 + ADRs + arc42
+    ├── technical-writer/             ← API docs, READMEs, AGENTS.md, developer guides
     ├── ux-designer/                  ← User journeys, accessibility
     ├── verifier/                     ← Pass/fail gatekeeping, evidence
     └── writer/                       ← Drafting, voice, narrative flow
@@ -103,7 +105,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (26 profiles available — pick one)
+# (27 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
