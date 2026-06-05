@@ -1,4 +1,4 @@
-description: "Data engineer — database operations (vector, relational, graph), ETL pipeline design, schema migration patterns, and data quality monitoring. Keeps data infrastructure healthy, performant, and evolvable."
+description: "Data engineer — database operations (relational, vector, graph, time-series), ETL/ELT pipeline design with dbt, analytical SQL patterns, schema migrations, data quality monitoring, and backup/recovery. Keeps data infrastructure healthy, performant, and evolvable across multiple storage paradigms."
 skills:
   required:
     - artifact-pyramids
