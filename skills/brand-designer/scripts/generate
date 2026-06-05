@@ -1,0 +1,309 @@
+#!/usr/bin/env python3
+"""
+generate — Brand-compliant image generation script.
+
+Produces brand card images, palette swatch cards, application mockups,
+and mood boards. Reads brand data from compiled brand directories
+or individual templates. Designed to be reference-image-aware, following
+the pattern from nous-branding/groktopus-branding.
+
+Environment variables (optional — if set, LLM-enhanced features activate):
+  BRAND_DESIGNER_LLM_URL   — OpenAI-compatible API endpoint
+  BRAND_DESIGNER_LLM_KEY   — API key for the above
+
+Subcommands:
+  brand-card   — Generate the primary brand card image
+  mockup       — Generate application mockups
+  swatch       — Generate color palette visualization
+  moodboard    — Generate mood/theme board
+  logo-bg      — Generate logo on different backgrounds
+"""
+
+import argparse
+import json
+import os
+import sys
+import textwrap
+from pathlib import Path
+
+
+def load_brand_data(brand_dir):
+    """Load frontmatter from a compiled brand directory."""
+    data = {}
+    brand_dir = Path(brand_dir)
+    if not brand_dir.exists():
+        return data
+
+    # Try to load from individual template files
+    for tmpl_name in ['strategy', 'visual-id', 'voice']:
+        tmpl_path = brand_dir / f"{tmpl_name}.md"
+        if tmpl_path.exists():
+            # Parse frontmatter
+            text = tmpl_path.read_text()
+            import re
+            match = re.match(r'^---\n(.*?)\n---\n(.*)', text, re.DOTALL)
+            if match:
+                try:
+                    import yaml
+                    fm = yaml.safe_load(match.group(1))
+                    if isinstance(fm, dict):
+                        data[tmpl_name] = fm
+                except ImportError:
+                    pass
+
+    return data
+
+
+def colors_to_prompt(data):
+    """Build a color description from brand data for use in image prompts."""
+    visual = data.get('visual-id', {})
+    colors = visual.get('colors', {})
+
+    color_parts = []
+    for palette_name in ['primary', 'secondary']:
+        palette = colors.get(palette_name, [])
+        for c in palette:
+            name = c.get('name', '')
+            hex_val = c.get('hex', '')
+            if name and hex_val:
+                color_parts.append(f"{name} #{hex_val}")
+
+    return "; ".join(color_parts) if color_parts else ""
+
+
+def personality_to_prompt(data):
+    """Build a brand personality description for image prompts."""
+    strategy = data.get('strategy', {})
+    personality = strategy.get('personality', [])
+
+    traits = []
+    for p in personality if isinstance(personality, list) else []:
+        if isinstance(p, dict) and p.get('axis') and p.get('value', 0) >= 3:
+            traits.append(p['axis'])
+
+    return ", ".join(traits) if traits else ""
+
+
+def prompt_brand_card(data, layout="landscape"):
+    """Construct a prompt for the brand card image."""
+    strategy = data.get('strategy', {})
+    visual = data.get('visual-id', {})
+    voice_data = data.get('voice', {})
+
+    brand_name = strategy.get('brand', visual.get('brand', 'Your Brand'))
+    tagline = strategy.get('tagline', '')
+    color_desc = colors_to_prompt(data)
+    personality_desc = personality_to_prompt(data)
+
+    # Get typography name
+    typography = visual.get('typography', {})
+    primary_type = ''
+    if isinstance(typography, dict):
+        primary = typography.get('primary', {})
+        if isinstance(primary, dict):
+            primary_type = primary.get('family', '')
+
+    # Build the prompt
+    orientation = "horizontal 16:9" if layout == "landscape" else "vertical 4:5"
+
+    prompt = textwrap.dedent(f"""\
+        Professional brand card for "{brand_name}", {orientation} format.
+        Clean, minimalist design with:
+        - Large prominent brand name "{brand_name}" {'with tagline: "' + tagline + '"' if tagline else ''}
+        - Color palette swatches: {color_desc or "professional corporate palette"}
+        - Brand typeface specimen showing "{primary_type or "clean sans-serif"}" typography
+        {'- Brand personality: ' + personality_desc if personality_desc else ''}
+        - Clean white or light background with subtle brand accent
+        - Elegant layout suitable for press kit or brand portal
+        No photorealistic people. Design-system mockup style, not a photograph.
+    """)
+
+    return prompt.strip()
+
+
+def prompt_mockup(data, mockup_type="stationery"):
+    """Construct a prompt for a brand application mockup."""
+    color_desc = colors_to_prompt(data)
+    strategy = data.get('strategy', {})
+
+    scene_descriptions = {
+        "stationery": "business cards, letterhead, and envelope set on a wooden desk, top-down flat lay",
+        "social": "social media post mockup on a smartphone screen with brand-colored UI elements",
+        "signage": "storefront sign or exterior building signage with brand logo, photorealistic architectural context",
+        "digital": "laptop and tablet displaying brand website or app interface, mockup style",
+    }
+
+    scene = scene_descriptions.get(mockup_type, scene_descriptions["stationery"])
+
+    prompt = textwrap.dedent(f"""\
+        Brand application mockup for {strategy.get('brand', 'a brand')}.
+        {scene}.
+        Brand colors: {color_desc or "professional corporate colors"}.
+        Clean, professional product photography style.
+        Subtle branding, not overwhelming. Show the brand in context.
+    """).strip()
+
+    return prompt
+
+
+# --- Subcommand handlers ---
+
+def cmd_brand_card(args):
+    data = load_brand_data(args.brand_dir)
+    prompt = prompt_brand_card(data, layout=args.layout)
+    if args.json:
+        print(json.dumps({"prompt": prompt, "model": "image-gen", "layout": args.layout}))
+    else:
+        print(f"=== Brand Card Prompt ({args.layout}) ===")
+        print(prompt)
+        print()
+        print("To generate: pipe this prompt to your preferred image generation tool.")
+        print("For reference-image-aware generation, include brand logo and palette card")
+        print("as reference images alongside this prompt.")
+
+
+def cmd_mockup(args):
+    data = load_brand_data(args.brand_dir)
+    prompt = prompt_mockup(data, mockup_type=args.type)
+    if args.json:
+        print(json.dumps({"prompt": prompt, "model": "image-gen", "type": args.type}))
+    else:
+        print(f"=== Mockup Prompt ({args.type}) ===")
+        print(prompt)
+        print()
+        print("To generate: pipe to image generation tool.")
+        print("Best results with reference image of brand logo and/or color palette.")
+
+
+def cmd_swatch(args):
+    data = load_brand_data(args.brand_dir)
+    visual = data.get('visual-id', {})
+    colors = visual.get('colors', {})
+
+    prompt = "Color palette visualization card. Professional swatch layout showing:\n\n"
+    for palette_name in ['primary', 'secondary', 'neutral']:
+        palette = colors.get(palette_name, [])
+        if not palette:
+            continue
+        prompt += f"{palette_name.title()} palette:\n"
+        for c in palette:
+            name = c.get('name', '')
+            hex_val = c.get('hex', '')
+            if name and hex_val:
+                prompt += f"  - {name}: #{hex_val}\n"
+        prompt += "\n"
+
+    if not colors:
+        prompt += "(No brand colors loaded — add a visual-id.md template with palette data)\n"
+
+    if args.json:
+        print(json.dumps({"prompt": prompt, "model": "image-gen"}))
+    else:
+        print("=== Swatch Card Prompt ===")
+        print(prompt)
+        print("To generate: pipe prompt to image generation tool.")
+        print("Include brand color reference card as reference image for accurate matching.")
+
+
+def cmd_moodboard(args):
+    data = load_brand_data(args.brand_dir)
+    prompt = persona = personality_to_prompt(data)
+    strategy = data.get('strategy', {})
+    theme = args.theme or "brand identity"
+
+    full_prompt = textwrap.dedent(f"""\
+        Mood board for {theme} theme.
+        Brand personality: {persona or "professional, modern"}.
+        Brand: {strategy.get('brand', 'a brand')}.
+        {strategy.get('positioning', {}).get('differentiator', '')}
+        
+        Collage-style layout with textures, color fields, typography samples,
+        and atmospheric imagery that captures the brand's essence.
+        Artistic, inspirational. Not a product mockup.
+    """).strip()
+
+    if args.json:
+        print(json.dumps({"prompt": full_prompt}))
+    else:
+        print(f"=== Moodboard Prompt ({theme}) ===")
+        print(full_prompt)
+        print()
+        print("Best with reference images of brand logo, palette, and existing brand materials.")
+
+
+def cmd_logo_bg(args):
+    data = load_brand_data(args.brand_dir)
+    color_desc = colors_to_prompt(data)
+    bg_type = args.background or "light"
+
+    prompt = textwrap.dedent(f"""\
+        Brand logo presentation on {bg_type} background.
+        Clean, professional showcase of a logo mark.
+        Background: {bg_type} solid or subtle gradient.
+        Logo colors: {color_desc or "brand signature color"}.
+        Minimal, elegant. Product photography style.
+        No text except the logo itself. Centered composition.
+    """).strip()
+
+    if args.json:
+        print(json.dumps({"prompt": prompt}))
+    else:
+        print(f"=== Logo Presentation Prompt ({bg_type} background) ===")
+        print(prompt)
+        print()
+        print("Best with the actual brand logo as a reference image.")
+
+
+# --- Main CLI ---
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Brand-compliant image generation",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument('--brand-dir', '-d', default='.',
+                        help='Brand directory with template files')
+    parser.add_argument('--json', action='store_true',
+                        help='Output as JSON (machine-readable prompt)')
+
+    subparsers = parser.add_subparsers(dest='command')
+
+    # brand-card
+    bc = subparsers.add_parser('brand-card', help='Generate brand card image')
+    bc.add_argument('--layout', choices=['portrait', 'landscape'], default='landscape')
+
+    # mockup
+    mk = subparsers.add_parser('mockup', help='Generate application mockup')
+    mk.add_argument('--type', choices=['stationery', 'social', 'signage', 'digital'],
+                    default='stationery')
+
+    # swatch
+    subparsers.add_parser('swatch', help='Generate palette visualization')
+
+    # moodboard
+    mb = subparsers.add_parser('moodboard', help='Generate mood/theme board')
+    mb.add_argument('--theme', help='Theme or subject for the mood board')
+
+    # logo-bg
+    lb = subparsers.add_parser('logo-bg', help='Generate logo presentation')
+    lb.add_argument('variant', help='Logo variant name')
+    lb.add_argument('--background', choices=['light', 'dark', 'gradient'], default='light')
+
+    args = parser.parse_args()
+
+    if args.command == 'brand-card':
+        cmd_brand_card(args)
+    elif args.command == 'mockup':
+        cmd_mockup(args)
+    elif args.command == 'swatch':
+        cmd_swatch(args)
+    elif args.command == 'moodboard':
+        cmd_moodboard(args)
+    elif args.command == 'logo-bg':
+        cmd_logo_bg(args)
+    else:
+        parser.print_help()
+
+
+if __name__ == '__main__':
+    main()

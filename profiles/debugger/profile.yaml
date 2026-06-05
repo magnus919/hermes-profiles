@@ -3,3 +3,5 @@ skills:
   required:
     - artifact-pyramids
     - debugging-methodology
+  required:
+    - systematic-debugging

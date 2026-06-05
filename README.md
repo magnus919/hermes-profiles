@@ -19,13 +19,14 @@ and 20+ other coding agents. Those should work anywhere.
 
 ```
 hermes-profiles/
-├── skills/                          ← Shared skill pool (single copy)
+├── skills/                          ← Shared skill pool
 │   ├── architecture/
 │   │   ├── adr-authoring/
 │   │   ├── arc42-context/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
 │   ├── artifact-pyramids/
+│   ├── brand-designer/
 │   ├── copy-editor-methodology/
 │   ├── curation-methodology/
 │   ├── data-architect/
@@ -35,7 +36,9 @@ hermes-profiles/
 │   ├── editor-review-methodology/
 │   ├── editorial-methodology/
 │   ├── implementation-planning/
+│   ├── kanban-guru/
 │   ├── mermaid-diagrams/
+│   ├── opensource-contributions/
 │   ├── orchestration-methodology/
 │   ├── product-methodology/
 │   ├── research-methodology/
@@ -43,9 +46,12 @@ hermes-profiles/
 │   ├── review-methodology/
 │   ├── seo-audit/
 │   ├── seo-content-optimization/
+│   ├── software-architecture-analysis/
+│   ├── systematic-debugging/
 │   ├── ux-methodology/
 │   └── verification-methodology/
 └── profiles/
+    ├── brand-designer/               ← Brand identity, visual systems
     ├── copy-editor/                  ← Line-level editing, proofreading
     ├── curator/                      ← Knowledge management, atomic notes
     ├── data-architect/               ← Data modeling, pipelines, governance
@@ -53,7 +59,9 @@ hermes-profiles/
     ├── debugger/                     ← Root cause analysis, error diagnosis
     ├── editor/                       ← Structural editing, argument coherence
     ├── implementation-planner/       ← Work breakdown, critical path
+    ├── kanban-strategist/            ← Flow optimization, WIP calibration
     ├── orchestrator/                 ← Task decomposition, specialist routing
+    ├── oss-contributor/              ← Open source contribution workflows
     ├── product-manager/              ← Specs, prioritization, strategy
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
@@ -75,7 +83,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (16 profiles available — pick one)
+# (19 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
