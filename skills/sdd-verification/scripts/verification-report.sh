@@ -38,7 +38,7 @@ for r in results:
   print(f'AC:{ac_id}\t{status}\t{evidence}')
 " 2>/dev/null || echo "ERROR=parse_failure"
   )
-else:
+else
   echo "Reading from stdin..."
   PLAN=$(cat)
 fi
