@@ -14,36 +14,49 @@ They may or may not work in other harnesses. No promises.
 
 ```
 hermes-profiles/
-├── skills/                     ← Shared skill pool (single copy)
-│   ├── artifact-pyramids/
+├── skills/                          ← Shared skill pool (single copy)
 │   ├── architecture/
 │   │   ├── adr-authoring/
 │   │   ├── arc42-context/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
+│   ├── artifact-pyramids/
+│   ├── copy-editor-methodology/
 │   ├── curation-methodology/
 │   ├── data-architect/
 │   ├── data-scientist/
 │   ├── debugging-methodology/
+│   ├── editor-methodology/
+│   ├── editor-review-methodology/
 │   ├── editorial-methodology/
+│   ├── implementation-planning/
 │   ├── mermaid-diagrams/
+│   ├── orchestration-methodology/
 │   ├── product-methodology/
 │   ├── research-methodology/
 │   ├── researcher-workflow/
 │   ├── review-methodology/
-│   └── ux-methodology/
+│   ├── seo-audit/
+│   ├── seo-content-optimization/
+│   ├── ux-methodology/
+│   └── verification-methodology/
 └── profiles/
-    ├── technical-architect/    ← Systems architecture: C4 + ADRs + arc42
-    ├── product-manager/        ← Product management: specs, prioritization
-    ├── data-architect/         ← Data modeling, pipelines, governance
-    ├── implementation-planner/ ← Work breakdown, critical path
-    ├── researcher/             ← Deep investigation, evidence synthesis
-    ├── writer/                 ← Drafting, voice, narrative flow
-    ├── debugger/               ← Root cause analysis, error diagnosis
-    ├── reviewer/               ← Code/architecture review, quality gates
-    ├── data-scientist/         ← Stats, causal inference, experimental design
-    ├── ux-designer/            ← User journeys, interaction design, accessibility
-    └── curator/                ← Knowledge management, atomic notes, cross-links
+    ├── copy-editor/                  ← Line-level editing, proofreading
+    ├── curator/                      ← Knowledge management, atomic notes
+    ├── data-architect/               ← Data modeling, pipelines, governance
+    ├── data-scientist/               ← Stats, causal inference, ML
+    ├── debugger/                     ← Root cause analysis, error diagnosis
+    ├── editor/                       ← Structural editing, argument coherence
+    ├── implementation-planner/       ← Work breakdown, critical path
+    ├── orchestrator/                 ← Task decomposition, specialist routing
+    ├── product-manager/              ← Specs, prioritization, strategy
+    ├── researcher/                   ← Deep investigation, evidence synthesis
+    ├── reviewer/                     ← Code/architecture review, quality gates
+    ├── seo-specialist/               ← Search optimization, metadata
+    ├── technical-architect/          ← Systems architecture: C4 + ADRs + arc42
+    ├── ux-designer/                  ← User journeys, accessibility
+    ├── verifier/                     ← Pass/fail gatekeeping, evidence
+    └── writer/                       ← Drafting, voice, narrative flow
 ```
 
 Profiles symlink to the shared `skills/` directory, so one copy of each
@@ -57,7 +70,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (11 profiles available — pick one)
+# (16 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
