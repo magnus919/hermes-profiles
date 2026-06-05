@@ -1,0 +1,4 @@
+description: "Systematic debugger — finds root causes before fixing. Expert in error investigation, reproduction, and test-driven debugging."
+skills:
+  required:
+    - artifact-pyramids
