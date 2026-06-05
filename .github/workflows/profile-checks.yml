@@ -58,3 +58,24 @@ jobs:
             exit 1
           fi
           echo "All profile.yaml files valid"
+
+      - name: Check README.md reflects current profiles and skills
+        run: |
+          errors=0
+          actual_profiles=$(ls profiles/ | wc -l | tr -d ' ')
+          readme_profiles=$(grep -c "←" README.md)
+          if [ "$readme_profiles" -ne "$actual_profiles" ]; then
+            echo "README.md lists $readme_profiles profiles but $actual_profiles profiles exist"
+            errors=$((errors + 1))
+          fi
+          actual_skills=$(ls skills/ | wc -l | tr -d ' ')
+          readme_skills=$(grep -c "│   ├── \|│   └── " README.md | head -1)
+          if [ "$readme_skills" -ne "$actual_skills" ]; then
+            echo "README.md skills section may be out of date ($readme_skills listed, $actual_skills exist)"
+            errors=$((errors + 1))
+          fi
+          if [ "$errors" -gt 0 ]; then
+            echo "Update README.md to reflect current profiles and skills"
+            exit 1
+          fi
+          echo "README.md matches $(ls profiles/ | wc -l | tr -d ' ') profiles and $(ls skills/ | wc -l | tr -d ' ') skills"
