@@ -1,12 +1,12 @@
 ---
 name: security-audit-methodology
 description: "Security audit and vulnerability assessment methodology — threat modeling, vulnerability classification, defense-in-depth review, dependency analysis, and security architecture evaluation. Grounded in OWASP, CWE, and STRIDE/LINDDUN frameworks."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [security, audit, vulnerability, threat-modeling, OWASP, penetration-testing]
+    tags: [security, audit, vulnerability, threat-modeling, OWASP, penetration-testing, architecture-review, supply-chain, sslm]
     related_skills: [review-methodology, systematic-debugging, codebase-security-audit]
 ---
 
@@ -30,8 +30,7 @@ Security is not a checklist — it's a posture. This methodology covers systemat
 |-----------|-------------|
 | `references/threat-modeling.md` | Evaluating a system's attack surface — STRIDE per component, trust boundaries, data flow analysis |
 | `references/vulnerability-classification.md` | Assessing a finding — CVSS scoring, CWE mapping, severity triage, exploitability assessment |
-| `references/security-architecture.md` | Reviewing authn/authz, secrets management, encryption, network segmentation, and secure defaults |
-| `references/dependency-audit.md` | Checking supply chain risk — known CVEs, license compatibility, maintenance health, transitive dependency risk |
+| `references/security-architecture-dependency-audit.md` | Reviewing authentication (OAuth 2.0, OIDC, SAML, mTLS), authorization (RBAC/ABAC/ReBAC), session management, secrets management, and dependency/supply chain security (SBOM, CVE matching, license analysis, SLSA framework) |
 | `references/testing-and-tooling.md` | Recommending SAST/DAST tools, fuzzing strategies, and security test patterns |
 
 ## Core Principles
