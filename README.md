@@ -30,6 +30,7 @@ hermes-profiles/
 │   ├── copy-editor-methodology/
 │   ├── curation-methodology/
 │   ├── data-architect/
+│   ├── data-engineering/
 │   ├── data-scientist/
 │   ├── debugging-methodology/
 │   ├── docker-management/
@@ -66,6 +67,7 @@ hermes-profiles/
     ├── copy-editor/                  ← Line-level editing, proofreading
     ├── curator/                      ← Knowledge management, atomic notes
     ├── data-architect/               ← Data modeling, pipelines, governance
+    ├── data-engineer/                ← Database ops, ETL, migrations, data quality
     ├── data-scientist/               ← Stats, causal inference, ML
     ├── debugger/                     ← Root cause analysis, error diagnosis
     ├── editor/                       ← Structural editing, argument coherence
@@ -99,7 +101,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (24 profiles available — pick one)
+# (25 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
