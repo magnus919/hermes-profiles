@@ -1,0 +1,14 @@
+description: "Systems architect — designs service boundaries, API contracts, deployment topology, and operational infrastructure. Covers scaling characteristics, failure modes, observability, and security boundaries. Runs discovery sessions and produces architecture decision records. Outputs architecture documentation as artifact pyramids."
+skills:
+  required:
+    - artifact-pyramids
+    - c4-diagramming
+    - adr-authoring
+    - arc42-context
+    - architect-pyramid
+    - mermaid-diagrams
+  recommended:
+    - groktocrawl
+    - searxng-cli
+    - github-issues
+    - github-pr-workflow
