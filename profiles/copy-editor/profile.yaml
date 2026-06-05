@@ -1,0 +1,5 @@
+description: "Line-level editor — grammar, punctuation, consistency, style guide enforcement, and proofreading. Sits after editor (structure) and before verifier (publication gate)."
+skills:
+  required:
+    - artifact-pyramids
+    - copy-editor-methodology
