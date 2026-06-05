@@ -25,25 +25,16 @@ hermes-profiles/
 │   └── product-methodology/
 └── profiles/
     ├── technical-architect/    ← Systems architecture: C4 + ADRs + arc42
-    │   ├── SOUL.md
-    │   ├── profile.yaml
-    │   ├── README.md
-    │   └── AGENTS.md
-    ├── product-manager/        ← Product management: specs, prioritization, strategy
-    │   ├── SOUL.md
-    │   ├── profile.yaml
-    │   ├── README.md
-    │   └── AGENTS.md
-    ├── data-architect/         ← Data modeling, pipelines, storage, governance
-    │   ├── SOUL.md
-    │   ├── profile.yaml
-    │   ├── README.md
-    │   └── AGENTS.md
-    └── implementation-planner/ ← Work breakdown, critical path, risk/rollback
-        ├── SOUL.md
-        ├── profile.yaml
-        ├── README.md
-        └── AGENTS.md
+    ├── product-manager/        ← Product management: specs, prioritization
+    ├── data-architect/         ← Data modeling, pipelines, governance
+    ├── implementation-planner/ ← Work breakdown, critical path
+    ├── researcher/             ← Deep investigation, evidence synthesis
+    ├── writer/                 ← Drafting, voice, narrative flow
+    ├── debugger/               ← Root cause analysis, error diagnosis
+    ├── reviewer/               ← Code/architecture review, quality gates
+    ├── data-scientist/         ← Stats, causal inference, experimental design
+    ├── ux-designer/            ← User journeys, interaction design, accessibility
+    └── curator/                ← Knowledge management, atomic notes, cross-links
 ```
 
 Profiles symlink to the shared `skills/` directory, so one copy of each
@@ -57,16 +48,11 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
-# or
-ln -s ~/hermes-profiles/profiles/product-manager ~/.hermes/profiles/
-# or
-ln -s ~/hermes-profiles/profiles/data-architect ~/.hermes/profiles/
-# or
-ln -s ~/hermes-profiles/profiles/implementation-planner ~/.hermes/profiles/
+# (11 profiles available — pick one)
+ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
-hermes --profile technical-architect
+hermes --profile researcher
 ```
 
 Each profile's `profile.yaml` lists its required skills and any Hermes-specific configuration.
