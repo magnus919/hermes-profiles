@@ -1,0 +1,4 @@
+description: "Implementation planner — maps work breakdown structures, identifies dependency chains, analyzes critical paths, sequences build phases, and produces milestone plans with risk buffers and rollback strategies."
+skills:
+  required:
+    - artifact-pyramids

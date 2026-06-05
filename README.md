@@ -29,7 +29,17 @@ hermes-profiles/
     │   ├── profile.yaml
     │   ├── README.md
     │   └── AGENTS.md
-    └── product-manager/        ← Product management: specs, prioritization, strategy
+    ├── product-manager/        ← Product management: specs, prioritization, strategy
+    │   ├── SOUL.md
+    │   ├── profile.yaml
+    │   ├── README.md
+    │   └── AGENTS.md
+    ├── data-architect/         ← Data modeling, pipelines, storage, governance
+    │   ├── SOUL.md
+    │   ├── profile.yaml
+    │   ├── README.md
+    │   └── AGENTS.md
+    └── implementation-planner/ ← Work breakdown, critical path, risk/rollback
         ├── SOUL.md
         ├── profile.yaml
         ├── README.md
@@ -50,6 +60,10 @@ git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 ln -s ~/hermes-profiles/profiles/technical-architect ~/.hermes/profiles/
 # or
 ln -s ~/hermes-profiles/profiles/product-manager ~/.hermes/profiles/
+# or
+ln -s ~/hermes-profiles/profiles/data-architect ~/.hermes/profiles/
+# or
+ln -s ~/hermes-profiles/profiles/implementation-planner ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
 hermes --profile technical-architect
