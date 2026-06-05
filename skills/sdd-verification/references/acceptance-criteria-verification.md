@@ -46,3 +46,15 @@ For each AC, verify:
 | CRITICAL | AC fails, workaround exists | Gate passes only with documented exception |
 | MINOR | AC passes with suboptimal behavior | Informational, tracking |
 | INFO | Observation, not a pass/fail issue | Reference for spec improvement |
+
+## Verdict Recommendation
+
+After classifying each AC by severity, the verification report SHOULD include a gate verdict recommendation using this mapping:
+
+| Condition | Recommended Verdict |
+|-----------|-------------------|
+| 0 BLOCKING, 0 CRITICAL | APPROVED |
+| 0 BLOCKING, ≤2 CRITICAL with remediation plans | CONDITIONS |
+| Any BLOCKING | REJECTED |
+| ≥3 CRITICAL without remediation plans | REJECTED |
+| < 90% pass rate without exception | REJECTED |

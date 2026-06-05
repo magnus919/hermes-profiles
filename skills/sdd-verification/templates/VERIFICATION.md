@@ -1,82 +1,84 @@
-# Task Plan: <Project / Feature Name>
+# Verification Report: <Project / Feature Name>
 
 ## Source Specification
 
 - **Spec:** `SPEC.md` (version <x.y.z>)
 - **Spec review gate:** <approved / conditions>
-- **Plan author:** <name>
-- **Plan version:** 0.1.0
+- **Plan reference:** `TASK-PLAN.md` (version <x.y.z>)
+- **Verification author:** <name>
+- **Verification date:** <date>
+- **Verification mode:** automated / manual / interactive
 
-## Phase Overview
+## L1: Summary
 
 | Metric | Value |
 |--------|-------|
-| Total tasks | <N> |
-| Task groups | <N> |
-| Critical path | <N> tasks |
-| Estimated total effort | <estimate> |
-| Dependencies | <N> real dependencies |
+| Total ACs tested | <N> |
+| Pass | <N> |
+| Fail | <N> |
+| Blocking | <N> |
+| Critical | <N> |
+| Minor | <N> |
+| Compliance score | <XX.X%> |
+| **Gate Verdict** | **APPROVED / CONDITIONS / REJECTED** |
 
-## Execution Order
+### Gate Verdict Rationale
 
-<Recommended execution order for the phase groups. Start with foundational tasks (contracts, schemas, interfaces), then core logic, then integration, then edge cases and error handling.>
+<One paragraph explaining why the gate verdict was reached, referencing the severity classification rules: 0 BLOCKING + 0 CRITICAL = APPROVED; 0 BLOCKING + ≤2 CRITICAL with remediation plans = CONDITIONS; any BLOCKING = REJECTED; <90% pass rate without exception = REJECTED.>
 
-## Task Groups
+## L2: Verification Matrix
 
-### Group 1: <Name>
+### Per-Story Results
 
-**Spec reference:** `SPEC.md` — Section <X>
-**Preconditions:** <none or reference to prerequisite groups>
-**Dependencies:** <none or list of prerequisite tasks>
+| Story / Feature | ACs | Pass | Fail | Blocking | Verdict |
+|-----------------|-----|------|------|----------|---------|
+| <US-001> | <N> | <N> | <N> | <N> | PASS / FAIL |
+| <US-002> | <N> | <N> | <N> | <N> | PASS / FAIL |
 
-| ID | Task | Spec Ref | Est. Size | Preconditions |
-|----|------|----------|-----------|---------------|
-| T-001 | <task name> | AC-001.x | S/M/L | <none or T-XXX> |
-| T-002 | <task name> | AC-001.x | S/M/L | T-001 |
+### Verification Dimensions Coverage
 
-### Group 2: <Name>
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Functional Correctness | <N/N> | |
+| Behavioral Completeness | <N/N> | |
+| Contract Compliance | <N/N> | |
+| Non-Functional Requirements | <N/N> | |
+| Negative Testing | <N/N> | |
 
+## L3: Failure Dossiers
+
+### <AC-ID>: <Description>
+
+- **Severity:** BLOCKING / CRITICAL / MINOR / INFO
+- **Story:** <US-00X>
+- **Verification dimension:** <Functional / Behavioral / Contract / NFR / Negative>
+
+**Expected behavior (from spec):**
+<What the acceptance criterion says should happen>
+
+**Actual behavior (from implementation):**
+<What actually happens>
+
+**Evidence:**
+<Test output, code inspection, observation>
+
+**Remediation recommendation:**
+<What to fix, why this severity, and how to verify the fix passes the AC>
+
+---
+
+### <AC-ID>: <Description>
 ...
 
-## Critical Path
+## SOURCES
 
-<Diagram or list showing the chain of dependent tasks that determine the overall timeline. Tasks on the critical path have zero float — delay in any one of them delays the entire plan.>
-
-## Task Cards
-
-Each task card is an independent work unit. Copy this structure for each task.
-
----
-
-### T-001: <Task Name>
-
-- **Type:** feature / refactor / test / docs / config
-- **Spec reference:** `SPEC.md` — US-001, AC-001.1, AC-001.2
-- **Dependencies:** <none or T-XXX>
-- **Estimated size:** Small (<1h) / Medium (1-2h) / Large (2-4h)
-- **Preconditions:** <what must exist before this task starts>
-
-**Description:**
-
-<What this task implements, derived from the spec.>
-
-**Acceptance Criteria:**
-
-- [ ] AC-001.1: <condition — directly from SPEC.md>
-- [ ] AC-001.2: <condition — directly from SPEC.md>
-
-**Implementation Agent Directives:**
-
-<This section becomes the CLAUDE.md context for the implementation agent running this task.>
-- Load SEPC.md section <X> for behavioral requirements
-- Load the interface contract from SPEC.md section <Y>
-- Implement in this commit: <commit scope>
-- Do NOT implement: <explicit out-of-scope for this task>
-
----
+| Reference | Description |
+|-----------|-------------|
+| `SPEC.md` | Source specification document |
+| <AC-specific ref> | Section X — user story for this AC |
 
 ## Revision History
 
 | Version | Date | Author | Change |
 |---------|------|--------|--------|
-| 0.1.0 | <date> | <name> | Initial plan from SPEC.md v0.x |
+| 1.0 | <date> | <name> | Initial verification |
