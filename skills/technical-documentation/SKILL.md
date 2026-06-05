@@ -1,12 +1,12 @@
 ---
 name: technical-documentation
 description: "Technical documentation methodology — API reference documentation, README authorship, CLI help text design, agent-facing documentation (AGENTS.md), developer guides, and documentation site information architecture."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent community
 license: MIT
 metadata:
   hermes:
-    tags: [documentation, technical-writing, API-docs, README, developer-guides, information-architecture]
+    tags: [documentation, technical-writing, API-docs, README, developer-guides, information-architecture, CLI, openapi]
     related_skills: [editorial-methodology, copy-editor-methodology, artifact-pyramids]
 ---
 
@@ -30,9 +30,8 @@ Technical documentation is the interface between a tool and its user. This metho
 | Reference | When to load |
 |-----------|-------------|
 | `references/readme-patterns.md` | Writing or restructuring a README — sections every README needs, quickstart patterns, installation variants, configuration documentation |
-| `references/api-documentation.md` | Documenting an API — endpoint structure, parameter tables, request/response examples, authentication, error handling |
+| `references/api-documentation-cli-help.md` | Documenting APIs (endpoint structure, parameter conventions, example design, auth patterns, OpenAPI annotations) and designing CLI help text (usage line, flags, exit codes, subcommand hierarchy, man pages) |
 | `references/agent-facing-docs.md` | Writing AGENTS.md and skill documentation — trigger patterns, loading order, output contracts, cross-references |
-| `references/cli-help.md` | Designing CLI help text — usage line, flag documentation, exit codes, environment variables, examples section |
 | `references/information-architecture.md` | Structuring a documentation site — progressive disclosure, cross-referencing, search optimization, maintenance strategy |
 
 ## Core Principles
