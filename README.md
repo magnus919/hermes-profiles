@@ -22,7 +22,8 @@ hermes-profiles/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
 │   ├── curation-methodology/
-│   ├── data-science-methodology/
+│   ├── data-architect/
+│   ├── data-scientist/
 │   ├── debugging-methodology/
 │   ├── editorial-methodology/
 │   ├── mermaid-diagrams/
