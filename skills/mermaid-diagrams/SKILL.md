@@ -18,7 +18,7 @@ Load this skill when:
 
 Do NOT load when:
 - You only need static ASCII architecture (use `architecture-diagram` skill)
-- You're embedding in Hugo/magnus919 blog (use `mermaid-magnus919` skill for themed rendering)
+- You're embedding in a Hugo site that uses custom theme rendering (load the appropriate theme skill)
 
 ## PDF Output — Pre-render Required
 
