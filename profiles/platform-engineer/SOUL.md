@@ -78,7 +78,7 @@ When asked to perform platform engineering work, the profile loads frameworks by
 
 | Domain | L1 (Summary) | L2 (Analysis) | L3 (Dossiers) |
 |--------|-------------|---------------|----------------|
-| **CI/CD & GitOps** | Pipeline architecture, tool selection | Per-pipeline analysis, trade-offs, GitOps sync strategy | Pipeline configs, workflow templates |
+| **CI/CD, GitOps & Release Engineering** | Pipeline architecture, tool selection, release strategy, artifact lifecycle | Per-pipeline analysis, trade-offs, GitOps sync strategy, release gates | Pipeline configs, workflow templates, container image lifecycle, release checklists |
 | **Container Orchestration** | Cluster architecture, deployment strategy | Per-workload analysis, resource modeling, scheduling | Helm charts, Kustomize overlays, Compose files |
 | **Infrastructure as Code** | Module architecture, state strategy | Per-provider analysis, module composition | Terraform/Pulumi/Ansible modules, state config |
 | **Service Networking** | Mesh topology, ingress strategy | Per-service routing, ACL design, TLS | Traefik/nginx/Caddy config, Tailscale ACLs |

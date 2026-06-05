@@ -55,6 +55,7 @@ skill_view('platform-engineering', file_path='references/infrastructure-as-code.
 | `references/secret-management.md` | HashiCorp Vault auth/policies, SOPS/age encryption in Git, External Secrets Operator, Sealed Secrets |
 | `references/cloud-platforms.md` | AWS/GCP/Azure foundational services, multi-cloud design, cost governance, provider abstraction |
 | `references/automation-languages.md` | Go CLI patterns, Python SDK integration, Bash bootstrap/conventions for platform tooling |
+| `references/release-engineering.md` | Container image lifecycle, artifact versioning strategies, release gate checklists, Helm chart promotion |
 
 ## Output Contract
 

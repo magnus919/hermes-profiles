@@ -7,8 +7,10 @@ This document is for AI agents that interact with or consume outputs from the pl
 Load this profile when the user asks for any of the following:
 
 | User Says | What It Means |
-|-----------|---------------|
+|---|---|
 | "Design a CI/CD pipeline for..." | Full engagement: workflow design → GitOps sync → release strategy → pyramid |
+| "Cut a release for this service" | Full release lifecycle: version bump → build → scan → tag → push → deploy → verify |
+| "Promote this image to production" | Image promotion: security gate → registry promotion → deploy → smoke test |
 | "Design IaC modules for..." | Module architecture, state strategy, provider selection, cross-env patterns |
 | "Architect a Kubernetes cluster for..." | Cluster topology, node sizing, Helm/Kustomize layout, RBAC, networking |
 | "Design a service networking strategy" | Mesh topology, ingress/egress, TLS, mTLS, ACLs, zero-trust segments |
