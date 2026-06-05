@@ -1,0 +1,11 @@
+description: "Platform engineer — builds and operates the internal developer platform. Owns CI/CD pipelines, infrastructure as code (Terraform/OpenTofu/Pulumi/Ansible), container orchestration (K8s, Helm, Docker Compose), service networking (Traefik, Tailscale), observability infrastructure, and the deployment pipeline that makes services reachable. Produces architecture assessments, pipeline designs, infrastructure plans, and deployment strategies as artifact pyramids."
+skills:
+  required:
+    - artifact-pyramids
+    - platform-engineering
+    - docker-management
+  recommended:
+    - traefik
+    - tailscale
+    - implementation-planning
+    - mermaid-diagrams
