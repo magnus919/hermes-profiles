@@ -28,6 +28,7 @@ hermes-profiles/
 │   ├── artifact-pyramids/
 │   ├── backend-engineering/
 │   ├── brand-designer/
+│   ├── contribution-pipeline/
 │   ├── copy-editor-methodology/
 │   ├── curation-methodology/
 │   ├── data-architect/
