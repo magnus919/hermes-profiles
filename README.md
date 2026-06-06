@@ -39,15 +39,22 @@ hermes-profiles/
 │   ├── editor-methodology/
 │   ├── editor-review-methodology/
 │   ├── editorial-methodology/
+│   ├── executive-methodology/
+│   ├── financial-modeling/
 │   ├── frontend-engineering/
+│   ├── go-to-market/
 │   ├── implementation-planning/
 │   ├── kanban-guru/
+│   ├── legal-strategy/
 │   ├── mermaid-diagrams/
 │   ├── ml-engineering/
 │   ├── opensource-contributions/
+│   ├── operational-design/
 │   ├── orchestration-methodology/
+│   ├── org-design/
 │   ├── platform-engineering/
 │   ├── product-methodology/
+│   ├── product-strategy/
 │   ├── qa-methodology/
 │   ├── research-methodology/
 │   ├── researcher-workflow/
@@ -61,9 +68,11 @@ hermes-profiles/
 │   ├── security-audit-methodology/
 │   ├── site-reliability-engineering/
 │   ├── software-architecture-analysis/
+│   ├── strategy-frameworks/
 │   ├── systematic-debugging/
 │   ├── tailscale/
 │   ├── technical-documentation/
+│   ├── technology-radar/
 │   ├── traefik/
 │   ├── ux-methodology/
 │   └── verification-methodology/
@@ -97,6 +106,16 @@ hermes-profiles/
     ├── ux-designer/                  ← User journeys, accessibility
     ├── verifier/                     ← Pass/fail gatekeeping, evidence
     └── writer/                       ← Drafting, voice, narrative flow
+    │
+    │   ── C-Suite Profiles ─────────────────────────────────────────
+    ├── ceo/                          ← Vision-to-strategy translation, capital allocation
+    ├── cto/                          ← Technology strategy, architecture governance
+    ├── cfo/                          ← Financial modeling, budget enforcement
+    ├── coo/                          ← Operational design, execution infrastructure
+    ├── cpo/                          ← Product strategy, roadmap, market fit
+    ├── cmo/                          ← Go-to-market, brand, customer acquisition
+    ├── clo/                          ← Legal strategy, regulatory risk, IP
+    └── chro/                         ← Org design, talent strategy, culture
 ```
 
 Profiles symlink to the shared `skills/` directory, so one copy of each
@@ -110,7 +129,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (29 profiles available — pick one)
+# (37 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)
