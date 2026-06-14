@@ -13,9 +13,8 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
-      issues: write
       id-token: write
       actions: read
     steps:
@@ -24,7 +23,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: Run Droid Auto Review
-        uses: Factory-AI/droid-action@main
+        uses: Factory-AI/droid-action@7c7bfea2aa3bb7ea87579402cc1d89dbcf6b13b3
         with:
           factory_api_key: ${{ secrets.FACTORY_API_KEY }}
           automatic_review: true
