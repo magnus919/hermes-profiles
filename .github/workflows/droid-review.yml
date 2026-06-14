@@ -9,7 +9,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  assess-depth:
+    runs-on: ubuntu-latest
+    outputs:
+      depth: ${{ steps.check.outputs.depth }}
+      security: ${{ steps.check.outputs.security }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CHANGED=$(gh pr diff ${{ github.event.pull_request.number }} --name-only 2>/dev/null || git diff --name-only HEAD~1)
+          echo "Changed files:"
+          echo "$CHANGED"
+          if echo "$CHANGED" | grep -qiE '(auth|oauth|jwt|saml|password|api.?key|secret|token|credential|crypt|cert|ssl|tls|firewall|proxy|dockerfile|docker-compose|kubernetes|k8s|terraform|\.env|config\.|sudo|exec|eval|spawn|cve|exploit)'; then
+            echo "depth=deep" >> $GITHUB_OUTPUT
+            echo "security=true" >> $GITHUB_OUTPUT
+          else
+            echo "depth=shallow" >> $GITHUB_OUTPUT
+            echo "security=false" >> $GITHUB_OUTPUT
+          fi
+
   droid-review:
+    needs: assess-depth
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     permissions:
@@ -27,4 +52,5 @@ jobs:
         with:
           factory_api_key: ${{ secrets.FACTORY_API_KEY }}
           automatic_review: true
-          automatic_security_review: true
+          review_depth: ${{ needs.assess-depth.outputs.depth }}
+          automatic_security_review: ${{ needs.assess-depth.outputs.security }}
