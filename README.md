@@ -2,15 +2,15 @@
 
 Curated Hermes Agent profiles for specialist swarms. Each profile packages a role identity (SOUL.md), skill dependencies, and configuration for a specific architecture/engineering capability that can be deployed as a Hermes agent.
 
-These profiles are **opinionated** — they use Hermes-native patterns:
+These profiles are **opinionated** - they use Hermes-native patterns:
 - Artifact-pyramid output format (progressive disclosure, path-as-handoff)
 - skill-based methodology loading (`skill_view` → load references)
 - Hermes kanban for multi-agent orchestration
 - Hermes profile system for role isolation
 
 The **profiles** (SOUL.md + profile.yaml) are Hermes-specific and unlikely to work
-in other harnesses. But the **skills** — the methodology directories in `skills/`
-with their SKILL.md + references/ structure — follow the [Agent Skills open
+in other harnesses. But the **skills** - the methodology directories in `skills/`
+with their SKILL.md + references/ structure - follow the [Agent Skills open
 standard](https://www.agensi.io/learn/agent-skills-open-standard) adopted by
 Claude Code, Codex CLI, Cursor, Gemini CLI, OpenClaw, GitHub Copilot, Windsurf,
 and 20+ other coding agents. Those should work anywhere.
@@ -75,9 +75,11 @@ hermes-profiles/
 │   ├── technology-radar/
 │   ├── traefik/
 │   ├── ux-methodology/
-│   └── verification-methodology/
+│   ├── verification-methodology/
+│   └── wonderer-methodology/
 └── profiles/
     ├── backend-engineer/             ← API implementation, service logic, database access
+    ├── blockchain-security-engineer/ ← Smart contract, wallet, protocol, and tokenomics security
     ├── brand-designer/               ← Brand identity, visual systems
     ├── copy-editor/                  ← Line-level editing, proofreading
     ├── curator/                      ← Knowledge management, atomic notes
@@ -105,6 +107,7 @@ hermes-profiles/
     ├── technical-writer/             ← API docs, READMEs, AGENTS.md, developer guides
     ├── ux-designer/                  ← User journeys, accessibility
     ├── verifier/                     ← Pass/fail gatekeeping, evidence
+    ├── wonderer/                     ← Lateral exploration, adjacent domains, overlooked angles
     └── writer/                       ← Drafting, voice, narrative flow
     │
     │   ── C-Suite Profiles ─────────────────────────────────────────
@@ -129,10 +132,10 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (37 profiles available — pick one)
+# (39 profiles available - pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
-# Switch to profile (skills are bundled — no separate install needed)
+# Switch to profile (skills are bundled - no separate install needed)
 hermes --profile researcher
 ```
 
@@ -145,7 +148,7 @@ Open an issue or PR. Profiles should:
 - Include a SOUL.md with first principles and output contract
 - List skill dependencies explicitly
 - Be Hermes-native (artifact-pyramid output, skill-based methodology loading)
-- Not depend on agent-specific infrastructure (council, cashew, etc.) — these must work on a vanilla Hermes install
+- Not depend on agent-specific infrastructure (council, cashew, etc.) - these must work on a vanilla Hermes install
 
 ## License
 

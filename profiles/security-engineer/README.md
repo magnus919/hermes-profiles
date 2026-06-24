@@ -1,6 +1,6 @@
-# Security Engineer — Hermes Profile
+# Security Engineer - Hermes Profile
 
-Security engineer — threat modeling, vulnerability assessment, security architecture review, and penetration testing methodology.
+Security engineer - threat modeling, vulnerability assessment, security architecture review, and penetration testing methodology.
 
 ## Installation
 
