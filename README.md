@@ -95,6 +95,7 @@ hermes-profiles/
     ├── platform-engineer/            ← CI/CD, IaC, container orchestration, service networking
     ├── product-manager/              ← Specs, prioritization, strategy
     ├── qa-engineer/                  ← Test strategy, automation, quality gates
+    ├── rag-architect/                ← Production RAG architecture, evaluation, observability
     ├── researcher/                   ← Deep investigation, evidence synthesis
     ├── reviewer/                     ← Code/architecture review, quality gates
     ├── security-engineer/            ← Threat modeling, vulnerability assessment, security architecture

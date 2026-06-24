@@ -1,0 +1,13 @@
+description: "RAG architect: production retrieval-augmented generation design, agent workflow architecture, evaluation strategy, observability, and rollout planning. Converts ambiguous AI goals into implementation-ready architecture artifacts."
+skills:
+  required:
+    - artifact-pyramids
+    - architecture
+    - data-architect
+    - ml-engineering
+    - software-architecture-analysis
+    - verification-methodology
+  recommended:
+    - mermaid-diagrams
+    - implementation-planning
+    - technical-documentation
