@@ -1,4 +1,6 @@
 ---
+name: site-reliability-engineering
+description: Use when designing, operating, reviewing, or improving production reliability with SLOs, incident command, observability, error budgets, and operational excellence.
 title: "Site Reliability Engineering — Methodology"
 type: skill
 subjects:

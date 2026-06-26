@@ -75,7 +75,8 @@ hermes-profiles/
 │   ├── technology-radar/
 │   ├── traefik/
 │   ├── ux-methodology/
-│   └── verification-methodology/
+│   ├── verification-methodology/
+│   └── wonderer-methodology/
 └── profiles/
     ├── backend-engineer/             ← API implementation, service logic, database access
     ├── brand-designer/               ← Brand identity, visual systems
@@ -105,6 +106,7 @@ hermes-profiles/
     ├── technical-writer/             ← API docs, READMEs, AGENTS.md, developer guides
     ├── ux-designer/                  ← User journeys, accessibility
     ├── verifier/                     ← Pass/fail gatekeeping, evidence
+    ├── wonderer/                     ← Lateral exploration, overlooked angles, adjacent possibilities
     └── writer/                       ← Drafting, voice, narrative flow
     │
     │   ── C-Suite Profiles ─────────────────────────────────────────
@@ -129,7 +131,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (37 profiles available — pick one)
+# (38 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)

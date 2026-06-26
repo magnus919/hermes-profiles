@@ -11,53 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check all symlinks resolve
-        run: |
-          broken=0
-          while IFS= read -r link; do
-            if [ ! -e "$link" ]; then
-              echo "BROKEN: $link -> $(readlink "$link")"
-              broken=$((broken + 1))
-            fi
-          done < <(find profiles -type l)
-          if [ "$broken" -gt 0 ]; then
-            echo "Found $broken broken symlinks"
-            exit 1
-          fi
-          echo "All symlinks resolve correctly"
-
-      - name: Check required files per profile
-        run: |
-          errors=0
-          for profile in profiles/*/; do
-            name=$(basename "$profile")
-            for f in SOUL.md profile.yaml README.md AGENTS.md; do
-              if [ ! -f "${profile}${f}" ]; then
-                echo "MISSING: $name/$f"
-                errors=$((errors + 1))
-              fi
-            done
-          done
-          if [ "$errors" -gt 0 ]; then
-            echo "Found $errors missing files"
-            exit 1
-          fi
-          echo "All profiles have required files"
-
-      - name: Validate YAML syntax in profile.yaml files
-        run: |
-          errors=0
-          for f in profiles/*/profile.yaml; do
-            if ! python3 -c "import yaml; yaml.safe_load(open('$f'))" 2>/dev/null; then
-              echo "INVALID YAML: $f"
-              errors=$((errors + 1))
-            fi
-          done
-          if [ "$errors" -gt 0 ]; then
-            echo "Found $errors invalid YAML files"
-            exit 1
-          fi
-          echo "All profile.yaml files valid"
+      - name: Validate profile metadata and skill wiring
+        run: python3 scripts/validate_profiles.py
 
       - name: Check README.md reflects current profiles and skills
         run: |
