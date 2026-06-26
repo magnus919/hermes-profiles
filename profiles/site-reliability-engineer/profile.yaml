@@ -4,8 +4,6 @@ skills:
     - artifact-pyramids
     - site-reliability-engineering
   recommended:
-    - groktocrawl
-    - searxng-cli
     - mermaid-diagrams
     - systematic-debugging
     - implementation-planning

@@ -1,5 +1,6 @@
 ---
 name: wonderer-methodology
+description: Use when exploring adjacent ideas, overlooked angles, or lateral research paths without prematurely collapsing into a single answer.
 category: research
 ---
 
