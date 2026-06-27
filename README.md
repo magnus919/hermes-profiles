@@ -28,6 +28,7 @@ hermes-profiles/
 │   ├── artifact-pyramids/
 │   ├── backend-engineering/
 │   ├── brand-designer/
+│   ├── chief-of-staff-methodology/
 │   ├── contribution-pipeline/
 │   ├── copy-editor-methodology/
 │   ├── curation-methodology/
@@ -116,6 +117,7 @@ hermes-profiles/
     ├── coo/                          ← Operational design, execution infrastructure
     ├── cpo/                          ← Product strategy, roadmap, market fit
     ├── cmo/                          ← Go-to-market, brand, customer acquisition
+    ├── chief-of-staff/               ← Leader capacity amplification, gatekeeping, coordination
     ├── clo/                          ← Legal strategy, regulatory risk, IP
     └── chro/                         ← Org design, talent strategy, culture
 ```
@@ -131,7 +133,7 @@ duplicating content.
 git clone https://github.com/magnus919/hermes-profiles.git ~/hermes-profiles
 
 # Symlink the profile you want into ~/.hermes/profiles/
-# (38 profiles available — pick one)
+# (39 profiles available — pick one)
 ln -s ~/hermes-profiles/profiles/researcher ~/.hermes/profiles/
 
 # Switch to profile (skills are bundled — no separate install needed)

@@ -13,9 +13,11 @@ hermes-profiles/
 │   │   ├── arc42-context/
 │   │   ├── architect-pyramid/
 │   │   └── c4-diagramming/
+│   ├── chief-of-staff-methodology/
 │   ├── mermaid-diagrams/
 │   └── product-methodology/
 ├── profiles/                        ← Agent profiles (symlinks to skills)
+│   ├── chief-of-staff/
 │   ├── technical-architect/
 │   ├── product-manager/
 │   └── site-reliability-engineer/
