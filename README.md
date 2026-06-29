@@ -142,6 +142,12 @@ hermes --profile researcher
 
 Each profile's `profile.yaml` lists its required skills and any Hermes-specific configuration.
 
+## Community Profile Distributions
+
+Installable Hermes profile distributions published outside this repository:
+
+- [Neko Baby](https://github.com/codegraphtheory/neko-baby) - A kawaii neko profile with pink catgirl energy, a compact chibi terminal pet pane, scoped Comic Mono launcher, and OpenAI Codex defaults.
+
 ## Contributing
 
 Open an issue or PR. Profiles should:
